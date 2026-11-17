@@ -1,0 +1,90 @@
+[
+  {
+    "name": "left PWM",
+    "passed": true
+  },
+  {
+    "name": "right PWM",
+    "passed": true
+  },
+  {
+    "name": "left CCR update",
+    "passed": true
+  },
+  {
+    "name": "right CCR update",
+    "passed": true
+  },
+  {
+    "name": "0/100 percent independent",
+    "passed": true
+  },
+  {
+    "name": "PA1 wrong AF disconnects only right PWM",
+    "passed": true
+  },
+  {
+    "name": "PA1 AF1 restored",
+    "passed": true
+  },
+  {
+    "name": "left wrap, right independent",
+    "passed": true
+  },
+  {
+    "name": "right underflow, left independent",
+    "passed": true
+  },
+  {
+    "name": "TIM4 encoder CEN=0",
+    "passed": true
+  },
+  {
+    "name": "TIM4 reenable/wrap",
+    "passed": true
+  },
+  {
+    "name": "TIM3 reverse underflow",
+    "passed": true
+  },
+  {
+    "name": "PB6/7 AF gating",
+    "passed": true
+  },
+  {
+    "name": "PB6/7 mode gating",
+    "passed": true
+  },
+  {
+    "name": "PB6/7 restored",
+    "passed": true
+  },
+  {
+    "name": "TIM4 gate independent of TIM3",
+    "passed": true
+  },
+  {
+    "name": "TIM4 clock resume",
+    "passed": true
+  },
+  {
+    "name": "PA4/5 BSRR levels 0",
+    "passed": true
+  },
+  {
+    "name": "PA4/5 BSRR levels 1",
+    "passed": true
+  },
+  {
+    "name": "PA4/5 BSRR levels 2",
+    "passed": true
+  },
+  {
+    "name": "PA4/5 BSRR levels 3",
+    "passed": true
+  },
+  {
+    "name": "TIM2 update IRQ28 delivery/clear/continue",
+    "passed": true
+  }
+]

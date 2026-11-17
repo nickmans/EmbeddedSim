@@ -1,0 +1,214 @@
+{
+  "model": {
+    "rk4_errors": [
+      7.795586398628984e-11,
+      4.855671420500585e-12,
+      3.0020430585864233e-13
+    ],
+    "steady_and_invariants": "passed"
+  },
+  "open": {
+    "final_counter": 19908,
+    "generated_count": 19914,
+    "max_step_s": 2.500000000016378e-05,
+    "max_edges_per_step": 1,
+    "firmware_sha256": "1d4488eaaeaf356bbe012d601367a590228c737c502508e86e55cb850719f003",
+    "csv_sha256": "b9a983bbfcc4434b851a5f1292a07a7abf013828f23917d17d5c4479eab4e583"
+  },
+  "closed": {
+    "final_counter": 46352,
+    "generated_count": 46358,
+    "max_step_s": 2.5000000000385825e-05,
+    "max_edges_per_step": 1,
+    "firmware_sha256": "09870ce4881b3cc35ac6e754e6725b961434c1749573f1414abdaa2ef8e845ed",
+    "csv_sha256": "6ccf7f5a2105039929786fb3fbf0faebc7af580fe6860f986990a8ca0700b155",
+    "metrics": {
+      "0.7_model_speed_rad_s_relative_error": 0.003944161951431132,
+      "0.7_estimated_speed_rad_s_relative_error": 0.004109773423936621,
+      "1.4_model_speed_rad_s_relative_error": 0.0029533510223009787,
+      "1.4_estimated_speed_rad_s_relative_error": 0.00305983225504562,
+      "2.2_model_speed_rad_s_relative_error": 0.0015157804080733683,
+      "2.2_estimated_speed_rad_s_relative_error": 0.0016443888346354641,
+      "3_model_speed_rad_s_relative_error": 0.0014849752813657347,
+      "3_estimated_speed_rad_s_relative_error": 0.0015872065226237454,
+      "0.1_model_speed_rad_s_settled_at_s": 0.371,
+      "0.1_estimated_speed_rad_s_settled_at_s": 0.377,
+      "0.9_model_speed_rad_s_settled_at_s": 1.132,
+      "0.9_estimated_speed_rad_s_settled_at_s": 1.1349999999999998,
+      "1.6_model_speed_rad_s_settled_at_s": 2.009,
+      "1.6_estimated_speed_rad_s_settled_at_s": 2.017,
+      "2.4_model_speed_rad_s_settled_at_s": 2.808,
+      "2.4_estimated_speed_rad_s_settled_at_s": 2.8169999999999997,
+      "load_min_speed_rad_s": 90.5403810472304,
+      "unloaded_duty": 0.4502066666666549,
+      "loaded_duty": 0.58387999999999
+    },
+    "convergence": {
+      "max_rad_s": 0.013464906693620549,
+      "rms_rad_s": 0.0021641854277581404
+    }
+  },
+  "reverse": {
+    "final_counter": 64572,
+    "generated_count": -966,
+    "max_step_s": 0.0002500000000000835,
+    "max_edges_per_step": 2,
+    "firmware_sha256": "dae786cf8a7568c914dd6c946e9ea0e78f0397a4fcebadf3e1a25759503aa7f6",
+    "csv_sha256": "a90b8ce4b8f618a9c4b02fe4d61445d35e75bbe543064769f9cd3e2ae0fa2e18"
+  },
+  "repeat": {
+    "final_counter": 46352,
+    "generated_count": 46358,
+    "max_step_s": 2.5000000000385825e-05,
+    "max_edges_per_step": 1,
+    "firmware_sha256": "09870ce4881b3cc35ac6e754e6725b961434c1749573f1414abdaa2ef8e845ed",
+    "csv_sha256": "6ccf7f5a2105039929786fb3fbf0faebc7af580fe6860f986990a8ca0700b155",
+    "metrics": {
+      "0.7_model_speed_rad_s_relative_error": 0.003944161951431132,
+      "0.7_estimated_speed_rad_s_relative_error": 0.004109773423936621,
+      "1.4_model_speed_rad_s_relative_error": 0.0029533510223009787,
+      "1.4_estimated_speed_rad_s_relative_error": 0.00305983225504562,
+      "2.2_model_speed_rad_s_relative_error": 0.0015157804080733683,
+      "2.2_estimated_speed_rad_s_relative_error": 0.0016443888346354641,
+      "3_model_speed_rad_s_relative_error": 0.0014849752813657347,
+      "3_estimated_speed_rad_s_relative_error": 0.0015872065226237454,
+      "0.1_model_speed_rad_s_settled_at_s": 0.371,
+      "0.1_estimated_speed_rad_s_settled_at_s": 0.377,
+      "0.9_model_speed_rad_s_settled_at_s": 1.132,
+      "0.9_estimated_speed_rad_s_settled_at_s": 1.1349999999999998,
+      "1.6_model_speed_rad_s_settled_at_s": 2.009,
+      "1.6_estimated_speed_rad_s_settled_at_s": 2.017,
+      "2.4_model_speed_rad_s_settled_at_s": 2.808,
+      "2.4_estimated_speed_rad_s_settled_at_s": 2.8169999999999997,
+      "load_min_speed_rad_s": 90.5403810472304,
+      "unloaded_duty": 0.4502066666666549,
+      "loaded_duty": 0.58387999999999
+    }
+  },
+  "pause": {
+    "final_counter": 46352,
+    "generated_count": 46358,
+    "max_step_s": 2.5000000000385825e-05,
+    "max_edges_per_step": 1,
+    "firmware_sha256": "09870ce4881b3cc35ac6e754e6725b961434c1749573f1414abdaa2ef8e845ed",
+    "csv_sha256": "6ccf7f5a2105039929786fb3fbf0faebc7af580fe6860f986990a8ca0700b155",
+    "metrics": {
+      "0.7_model_speed_rad_s_relative_error": 0.003944161951431132,
+      "0.7_estimated_speed_rad_s_relative_error": 0.004109773423936621,
+      "1.4_model_speed_rad_s_relative_error": 0.0029533510223009787,
+      "1.4_estimated_speed_rad_s_relative_error": 0.00305983225504562,
+      "2.2_model_speed_rad_s_relative_error": 0.0015157804080733683,
+      "2.2_estimated_speed_rad_s_relative_error": 0.0016443888346354641,
+      "3_model_speed_rad_s_relative_error": 0.0014849752813657347,
+      "3_estimated_speed_rad_s_relative_error": 0.0015872065226237454,
+      "0.1_model_speed_rad_s_settled_at_s": 0.371,
+      "0.1_estimated_speed_rad_s_settled_at_s": 0.377,
+      "0.9_model_speed_rad_s_settled_at_s": 1.132,
+      "0.9_estimated_speed_rad_s_settled_at_s": 1.1349999999999998,
+      "1.6_model_speed_rad_s_settled_at_s": 2.009,
+      "1.6_estimated_speed_rad_s_settled_at_s": 2.017,
+      "2.4_model_speed_rad_s_settled_at_s": 2.808,
+      "2.4_estimated_speed_rad_s_settled_at_s": 2.8169999999999997,
+      "load_min_speed_rad_s": 90.5403810472304,
+      "unloaded_duty": 0.4502066666666549,
+      "loaded_duty": 0.58387999999999
+    }
+  },
+  "half": {
+    "final_counter": 46352,
+    "generated_count": 46358,
+    "max_step_s": 1.2500000000414957e-05,
+    "max_edges_per_step": 1,
+    "firmware_sha256": "09870ce4881b3cc35ac6e754e6725b961434c1749573f1414abdaa2ef8e845ed",
+    "csv_sha256": "79d7985a50716ce05d9a75e1c0bd8da2debcc998719f309622415a30f77e18e0",
+    "metrics": {
+      "0.7_model_speed_rad_s_relative_error": 0.003947061233634367,
+      "0.7_estimated_speed_rad_s_relative_error": 0.004109773423936621,
+      "1.4_model_speed_rad_s_relative_error": 0.002950878276777047,
+      "1.4_estimated_speed_rad_s_relative_error": 0.00305983225504562,
+      "2.2_model_speed_rad_s_relative_error": 0.0015196530635245154,
+      "2.2_estimated_speed_rad_s_relative_error": 0.0016443888346354641,
+      "3_model_speed_rad_s_relative_error": 0.0014866307476262364,
+      "3_estimated_speed_rad_s_relative_error": 0.0015872065226237454,
+      "0.1_model_speed_rad_s_settled_at_s": 0.371,
+      "0.1_estimated_speed_rad_s_settled_at_s": 0.377,
+      "0.9_model_speed_rad_s_settled_at_s": 1.132,
+      "0.9_estimated_speed_rad_s_settled_at_s": 1.1349999999999998,
+      "1.6_model_speed_rad_s_settled_at_s": 2.009,
+      "1.6_estimated_speed_rad_s_settled_at_s": 2.017,
+      "2.4_model_speed_rad_s_settled_at_s": 2.808,
+      "2.4_estimated_speed_rad_s_settled_at_s": 2.8169999999999997,
+      "load_min_speed_rad_s": 90.54096028434665,
+      "unloaded_duty": 0.4502066666666549,
+      "loaded_duty": 0.58387999999999
+    },
+    "convergence": {
+      "max_rad_s": 0.010781267316090748,
+      "rms_rad_s": 0.0018951530580878213
+    }
+  },
+  "quarter": {
+    "final_counter": 46352,
+    "generated_count": 46358,
+    "max_step_s": 6.2500000002074785e-06,
+    "max_edges_per_step": 1,
+    "firmware_sha256": "09870ce4881b3cc35ac6e754e6725b961434c1749573f1414abdaa2ef8e845ed",
+    "csv_sha256": "34a7e3e8cf3c85e31978831b35cf8427da82703f6bb52c1d18b0c5dc16763c0a",
+    "metrics": {
+      "0.7_model_speed_rad_s_relative_error": 0.003969239729612184,
+      "0.7_estimated_speed_rad_s_relative_error": 0.004109773423936621,
+      "1.4_model_speed_rad_s_relative_error": 0.002951415598529508,
+      "1.4_estimated_speed_rad_s_relative_error": 0.00305983225504562,
+      "2.2_model_speed_rad_s_relative_error": 0.0015222099299957393,
+      "2.2_estimated_speed_rad_s_relative_error": 0.0016443888346354641,
+      "3_model_speed_rad_s_relative_error": 0.0014870829193142753,
+      "3_estimated_speed_rad_s_relative_error": 0.0015872065226237454,
+      "0.1_model_speed_rad_s_settled_at_s": 0.371,
+      "0.1_estimated_speed_rad_s_settled_at_s": 0.377,
+      "0.9_model_speed_rad_s_settled_at_s": 1.132,
+      "0.9_estimated_speed_rad_s_settled_at_s": 1.136,
+      "1.6_model_speed_rad_s_settled_at_s": 2.009,
+      "1.6_estimated_speed_rad_s_settled_at_s": 2.017,
+      "2.4_model_speed_rad_s_settled_at_s": 2.808,
+      "2.4_estimated_speed_rad_s_settled_at_s": 2.8169999999999997,
+      "load_min_speed_rad_s": 90.53875920727442,
+      "unloaded_duty": 0.45020666666665493,
+      "loaded_duty": 0.58387999999999
+    }
+  },
+  "noload": {
+    "final_counter": 46353,
+    "generated_count": 46359,
+    "max_step_s": 2.5000000000385825e-05,
+    "max_edges_per_step": 1,
+    "firmware_sha256": "09870ce4881b3cc35ac6e754e6725b961434c1749573f1414abdaa2ef8e845ed",
+    "csv_sha256": "362d37c9f57d39e162e28b89152138177d9d0048c18e7caa02a4875bdea5abc1"
+  },
+  "antiwindup": {
+    "final_counter": 32636,
+    "generated_count": 32642,
+    "max_step_s": 2.500000000016378e-05,
+    "max_edges_per_step": 1,
+    "firmware_sha256": "d17c630cd160838db0494cce163adb10c08ebab1ed80817ddec254dd537a238a",
+    "csv_sha256": "f7f950c891e2211fdc2bfc9193e501137d055654471d8de949671e558930b887"
+  },
+  "provenance": {
+    "renode": "Renode v1.17.0\n  build: 1.17.0+20260907gitf1dd1b4af\n  build type: Release\n  runtime: .NET 8.0.12",
+    "compiler": "arm-none-eabi-gcc (xPack GNU Arm Embedded GCC x86_64) 15.2.1 20251203",
+    "sources_sha256": {
+      "models/Motor.cs": "2270f360d9a71e83478c52fb2f4ca597c6ce1cb957b4184ac852cf45fabc5ad2",
+      "integration/renode/MotorLoop.cs": "9c1d701016ca1caaca58a6f66c003581d7cadfbc6f3b7a6180f76b998debf763",
+      "firmware/motor/controller.c": "a07427196d558c4ebeecb2799e04649697116ef2169ffe7ba2a947d87e3f21aa",
+      "docs/motor-loop-contract.md": "c063ff8088c2216977c886d78ea66d61bfe78b5270ae429c59c49a795669d1c4",
+      "emulation/renode/patches/0001-timer.patch": "7edbd34437655b9c2e769b522885cda3d276033ad7323be42d58a8e0881d7cbe",
+      "emulation/renode/patches/0002-rcc.patch": "d29bad36660a43404db25dce502de8c39b34d74977e30784a7b984112125f779"
+    },
+    "main_step_ns": 25000,
+    "refined_steps_ns": [
+      12500,
+      6250
+    ],
+    "encoder_counts_per_revolution": 1024,
+    "status": "all requested checks for this invocation passed"
+  }
+}

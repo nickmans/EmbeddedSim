@@ -1,0 +1,54 @@
+// Qualified slice only: TIM2/3/4, GPIOA, RCC and startup dependencies.
+flash: Memory.MappedMemory @ sysbus 0x08000000
+    size: 0x100000
+sram: Memory.MappedMemory @ sysbus 0x20000000
+    size: 0x20000
+ccm: Memory.MappedMemory @ sysbus 0x10000000
+    size: 0x10000
+nvic: IRQControllers.NVIC @ sysbus 0xE000E000
+    priorityMask: 0xF0
+    systickFrequency: 16000000
+    IRQ -> cpu@0
+cpu: CPU.CortexM @ sysbus
+    cpuType: "cortex-m4"
+    nvic: nvic
+gpioPortA: GPIOPort.STM32_GPIOPort @ sysbus <0x40020000, +0x400>
+    modeResetValue: 0xA8000000
+    numberOfAFs: 16
+flash_controller: MTD.STM32F4_FlashController @ sysbus 0x40023C00
+    flash: flash
+pwr: Miscellaneous.STM32_PWR @ sysbus 0x40007000
+rtc: Timers.STM32F4_RTC @ sysbus 0x40002800
+rcc: Miscellaneous.QualifiedSTM32RCC @ sysbus 0x40023800
+    rtcPeripheral: rtc
+    timer2: timer2
+    timer3: timer3
+    timer4: timer4
+timer2: Timers.QualifiedSTM32Timer @ sysbus 0x40000000
+    frequency: 16000000
+    initialLimit: 4294967295
+    -> nvic@28
+timer3: Timers.QualifiedSTM32Timer @ sysbus 0x40000400
+    frequency: 16000000
+    initialLimit: 65535
+    -> nvic@29
+timer4: Timers.QualifiedSTM32Timer @ sysbus 0x40000800
+    frequency: 16000000
+    initialLimit: 65535
+    -> nvic@30
+timer2:
+    0 -> gpioPortA#0@1
+encoder6: GPIOPort.STM32AFInput @ timer3
+    port: gpioPortA
+    pin: 6
+    alternateFunction: 2
+    IRQ -> timer3@0
+gpioPortA:
+    6 -> encoder6@0
+encoder7: GPIOPort.STM32AFInput @ timer3
+    port: gpioPortA
+    pin: 7
+    alternateFunction: 2
+    IRQ -> timer3@1
+gpioPortA:
+    7 -> encoder7@0

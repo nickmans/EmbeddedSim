@@ -1,0 +1,132 @@
+--- STM32F4_RCC.cs
++++ STM32F4_RCC.cs
+@@ -1,4 +1,4 @@
+-﻿//
++//
+ // Copyright (c) 2010-2025 Antmicro
+ //
+ // This file is licensed under the MIT License.
+@@ -17,21 +17,15 @@
+     [AllowedTranslations(AllowedTranslation.ByteToDoubleWord | AllowedTranslation.WordToDoubleWord)]
+     public sealed class STM32F4_RCC : IDoubleWordPeripheral, IKnownSize, IProvidesRegisterCollection<DoubleWordRegisterCollection>
+     {
+-        public STM32F4_RCC(IMachine machine, STM32F4_RTC rtcPeripheral)
++        public STM32F4_RCC(IMachine machine, STM32F4_RTC rtcPeripheral,
++            STM32_Timer timer2 = null, STM32_Timer timer3 = null, STM32_Timer timer4 = null,
++            ulong hseFrequency = 8000000)
+         {
+-            // Renode, in general, does not include clock control peripherals.
+-            // While this is doable, it seldom benefits real software development
+-            // and is very cumbersome to maintain.
+-            //
+-            // To properly support the RTC peripheral, we need to add this stub class.
+-            // It is common in Renode that whenever a register is implemented, it
+-            // either contains actual logic or tags, indicating not implemented fields.
+-            //
+-            // Here, however, we want to fake most of the registers as r/w values.
+-            // Usually we implemented this logic with Python peripherals.
+-            //
+-            // Keep in mind that most of these registers do not affect other
+-            // peripherals or their clocks.
++            this.machine = machine;
++            this.timers = new[] { timer2, timer3, timer4 };
++            this.hseFrequency = hseFrequency;
++            // Oscillator ready flags retain the upstream instantaneous behavior.
++            // Only the explicitly attached APB1 timers receive clock/reset signals.
+             var registersMap = new Dictionary<long, DoubleWordRegister>
+             {
+                 {(long)Registers.ClockControl, new DoubleWordRegister(this, 0x483)
+@@ -344,6 +338,7 @@
+             };
+ 
+             RegistersCollection = new DoubleWordRegisterCollection(this, registersMap);
++            UpdateTimerClocks();
+         }
+ 
+         public uint ReadDoubleWord(long offset)
+@@ -353,13 +348,33 @@
+ 
+         public void WriteDoubleWord(long offset, uint value)
+         {
++            // Bring CPU-originated writes to their virtual timestamp before changing clocks.
++            if(machine.GetSystemBus(this).TryGetCurrentCPU(out var cpu))
++            {
++                cpu.SyncTime();
++            }
+             RegistersCollection.Write(offset, value);
++            if(offset == 0x20)
++            {
++                for(var i = 0; i < timers.Length; ++i)
++                {
++                    if(timers[i] != null && (value & (1u << i)) != 0)
++                    {
++                        timers[i].Reset();
++                    }
++                }
++            }
++            if(offset == 0 || offset == 4 || offset == 8 || offset == 0x20 || offset == 0x40)
++            {
++                UpdateTimerClocks();
++            }
+         }
+ 
+         public void Reset()
+         {
+             RegistersCollection.Reset();
+             Timer9Reset.Unset();
++            UpdateTimerClocks();
+         }
+ 
+         public long Size => 0x400;
+@@ -371,6 +386,51 @@
+         // introduce a clean solution for resetting peripherals; 
+         public GPIO Timer9Reset { get; } = new GPIO();
+ 
++        private void UpdateTimerClocks()
++        {
++            var cr = RegistersCollection.Read(0);
++            var pll = RegistersCollection.Read(4);
++            var cfgr = RegistersCollection.Read(8);
++            var source = cfgr & 3;
++            ulong systemClock = 16000000;
++            var ready = (cr & 1) != 0;
++            if(source == 1)
++            {
++                systemClock = hseFrequency;
++                ready = (cr & (1u << 16)) != 0;
++            }
++            else if(source == 2)
++            {
++                var m = pll & 63;
++                var n = (pll >> 6) & 511;
++                var p = 2 * (((pll >> 16) & 3) + 1);
++                var pllHse = (pll & (1u << 22)) != 0;
++                ready = (cr & (1u << 24)) != 0 && (cr & (pllHse ? 1u << 16 : 1u)) != 0 && m != 0 && n != 0;
++                if(m != 0 && n != 0)
++                {
++                    systemClock = (pllHse ? hseFrequency : 16000000UL) * n / m / p;
++                }
++            }
++            var ahbCode = (cfgr >> 4) & 15;
++            var ahbDividers = new uint[] { 1,1,1,1,1,1,1,1,2,4,8,16,64,128,256,512 };
++            var apbCode = (cfgr >> 10) & 7;
++            var apbDivider = apbCode < 4 ? 1UL : 1UL << ((int)apbCode - 3);
++            var timerClock = systemClock / ahbDividers[ahbCode] / apbDivider * (apbDivider == 1 ? 1UL : 2UL);
++            var enables = RegistersCollection.Read(0x40);
++            var resets = RegistersCollection.Read(0x20);
++            for(var i = 0; i < timers.Length; ++i)
++            {
++                if(timers[i] != null)
++                {
++                    timers[i].SetClock(timerClock, ready && (enables & (1u << i)) != 0 && (resets & (1u << i)) == 0);
++                }
++            }
++        }
++
++        private readonly IMachine machine;
++        private readonly STM32_Timer[] timers;
++        private readonly ulong hseFrequency;
++
+         private enum Registers
+         {
+             ClockControl = 0x0,

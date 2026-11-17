@@ -1,0 +1,288 @@
+{
+  "profile": "stock",
+  "checks": [
+    {
+      "name": "emulator_completed",
+      "passed": false,
+      "error": "Renode exit -6"
+    },
+    {
+      "name": "pwm0",
+      "passed": false,
+      "error": "pwm0: periods [0.0009989999999999995, 0.0009990000000000008, 0.0009989999999999999, 0.0009989999999999999], expected 0.001"
+    },
+    {
+      "name": "pwm_preloaded0",
+      "passed": false,
+      "error": "pwm_preloaded0: periods [0.0009989999999999999, 0.0009989999999999999, 0.0009989999999999999, 0.0009989999999999999], expected 0.001"
+    },
+    {
+      "name": "pwm1",
+      "passed": false,
+      "error": "pwm1: periods [9.99380000000008e-05, 9.993799999999907e-05, 9.99380000000008e-05, 9.993799999999907e-05], expected 0.0001"
+    },
+    {
+      "name": "pwm_preloaded1",
+      "passed": false,
+      "error": "pwm_preloaded1: periods [9.993799999999907e-05, 9.99380000000008e-05, 9.993799999999907e-05, 9.99380000000008e-05], expected 0.0001"
+    },
+    {
+      "name": "pwm2",
+      "passed": false,
+      "error": "pwm2: periods [0.000999499999999997, 0.0009995000000000004, 0.0009995000000000004, 0.0009995000000000004], expected 0.001"
+    },
+    {
+      "name": "pwm_preloaded2",
+      "passed": false,
+      "error": "pwm_preloaded2: periods [0.000999499999999997, 0.0009995000000000004, 0.0009995000000000004, 0.0009995000000000004], expected 0.001"
+    },
+    {
+      "name": "pwm3",
+      "passed": false,
+      "error": "pwm3: periods [0.0019979999999999998, 0.0019979999999999998, 0.0019979999999999998, 0.0019979999999999998], expected 0.002"
+    },
+    {
+      "name": "pwm_preloaded3",
+      "passed": false,
+      "error": "pwm_preloaded3: periods [0.0019979999999999998, 0.0019979999999999998, 0.0019979999999999998, 0.0019979999999999998], expected 0.002"
+    },
+    {
+      "name": "constant0",
+      "passed": true
+    },
+    {
+      "name": "constant1000",
+      "passed": true
+    },
+    {
+      "name": "constant1200",
+      "passed": true
+    },
+    {
+      "name": "pwm_for_gpio",
+      "passed": false,
+      "error": "pwm_for_gpio: periods [0.0009989999999999999, 0.0009989999999999999, 0.0009989999999999999, 0.0009989999999999999], expected 0.001"
+    },
+    {
+      "name": "pwm_input_mode",
+      "passed": true
+    },
+    {
+      "name": "pwm_wrong_af",
+      "passed": true
+    },
+    {
+      "name": "pwm_af_restored",
+      "passed": false,
+      "error": "pwm_af_restored: periods [0.0009989999999999999, 0.0009989999999999999, 0.0009989999999999999, 0.0009989999999999999], expected 0.001"
+    },
+    {
+      "name": "enc_forward",
+      "passed": true
+    },
+    {
+      "name": "enc_reverse",
+      "passed": true
+    },
+    {
+      "name": "enc_disabled",
+      "passed": false,
+      "error": "enc_disabled: expected 0, got 4"
+    },
+    {
+      "name": "enc_reenabled",
+      "passed": false,
+      "error": "enc_reenabled: expected 4, got 8"
+    },
+    {
+      "name": "enc_clock_gated",
+      "passed": false,
+      "error": "enc_clock_gated: expected 0"
+    },
+    {
+      "name": "enc_clock_resumed",
+      "passed": false,
+      "error": "enc_clock_resumed: expected 4"
+    },
+    {
+      "name": "enc_reset",
+      "passed": false,
+      "error": "enc_reset: expected 0"
+    },
+    {
+      "name": "enc_reset_reinit",
+      "passed": true
+    },
+    {
+      "name": "enc_wrap",
+      "passed": false,
+      "error": "'enc_wrap.enc'"
+    },
+    {
+      "name": "enc_underflow",
+      "passed": false,
+      "error": "'enc_underflow.enc'"
+    },
+    {
+      "name": "enc_input_mode",
+      "passed": false,
+      "error": "enc_input_mode: count changed"
+    },
+    {
+      "name": "enc_wrong_af",
+      "passed": false,
+      "error": "enc_wrong_af: count changed"
+    },
+    {
+      "name": "enc_af_restored",
+      "passed": true
+    },
+    {
+      "name": "psc_buffer",
+      "passed": false,
+      "error": "psc_buffer: mixed/broken cycle [0.0009989999999999999, 0.0016449800000000042, 0.0019979999999999998, 0.0019979999999999998]"
+    },
+    {
+      "name": "arr_buffer",
+      "passed": false,
+      "error": "arr_buffer: mixed/broken cycle [0.0009989999999999999, 0.0009989999999999999, 0.0019990000000000008, 0.0019990000000000008, 0.0019990000000000008]"
+    },
+    {
+      "name": "ccr_buffer",
+      "passed": false,
+      "error": "ccr_buffer: mixed/broken cycle [0.0009989999999999999, 0.0009989999999999999, 0.0009989999999999999, 0.0009989999999999999, 0.0009989999999999999, 0.0009989999999999999, 0.0009989999999999999, 0.0009989999999999999]"
+    },
+    {
+      "name": "ug_first_cycle",
+      "passed": false,
+      "error": "UG did not load PSC/ARR before the first cycle"
+    },
+    {
+      "name": "ug_transfer",
+      "passed": false,
+      "error": "ug_transfer: periods [0.0039980000000000016, 0.0039980000000000016, 0.0039980000000000016], expected 0.004"
+    },
+    {
+      "name": "irq_periodic",
+      "passed": true
+    },
+    {
+      "name": "irq_stopped",
+      "passed": true
+    },
+    {
+      "name": "irq_resumed",
+      "passed": true
+    },
+    {
+      "name": "irq_clock_gated",
+      "passed": false,
+      "error": "irq_gate0/irq_gate1: IRQ delta 4, expected 0"
+    },
+    {
+      "name": "irq_clock_resumed",
+      "passed": true
+    },
+    {
+      "name": "irq_reset",
+      "passed": false,
+      "error": "irq_reset0/irq_reset1: IRQ delta 4, expected 0"
+    },
+    {
+      "name": "ug_uif_without_uie",
+      "passed": false,
+      "error": "UG must set UIF independently of UIE"
+    },
+    {
+      "name": "hsi_div1",
+      "passed": false,
+      "error": "hsi_div1: periods [0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861], expected 0.0005"
+    },
+    {
+      "name": "hsi_div1_irq",
+      "passed": true
+    },
+    {
+      "name": "hsi_apb2",
+      "passed": false,
+      "error": "hsi_apb2: periods [0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861], expected 0.0005"
+    },
+    {
+      "name": "hsi_apb2_irq",
+      "passed": true
+    },
+    {
+      "name": "hsi_apb4",
+      "passed": false,
+      "error": "hsi_apb4: periods [0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861], expected 0.001"
+    },
+    {
+      "name": "hsi_apb4_irq",
+      "passed": false,
+      "error": "hsi_apb4irq0/hsi_apb4irq1: IRQ delta 8, expected 4"
+    },
+    {
+      "name": "hsi_ahb2_apb4",
+      "passed": false,
+      "error": "hsi_ahb2_apb4: periods [0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861], expected 0.002"
+    },
+    {
+      "name": "hsi_ahb2_apb4_irq",
+      "passed": false,
+      "error": "hsi_ahb2_apb4irq0/hsi_ahb2_apb4irq1: IRQ delta 16, expected 4"
+    },
+    {
+      "name": "hse8",
+      "passed": false,
+      "error": "hse8: periods [0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861, 0.0004995000000000138, 0.0004994999999999861], expected 0.001"
+    },
+    {
+      "name": "hse8_irq",
+      "passed": false,
+      "error": "hse8irq0/hse8irq1: IRQ delta 8, expected 4"
+    },
+    {
+      "name": "pll168_apb4",
+      "passed": false,
+      "error": "pll168_apb4: insufficient edges"
+    },
+    {
+      "name": "pll168_apb4_irq",
+      "passed": false,
+      "error": "pll168_apb4irq0/pll168_apb4irq1: IRQ delta 1, expected 4"
+    },
+    {
+      "name": "pll168_apb8",
+      "passed": false,
+      "error": "pll168_apb8: insufficient edges"
+    },
+    {
+      "name": "pll168_apb8_irq",
+      "passed": false,
+      "error": "pll168_apb8irq0/pll168_apb8irq1: IRQ delta 2, expected 4"
+    },
+    {
+      "name": "running_clock_change",
+      "passed": false,
+      "error": "running_clock_change: periods [0.0009990000000000276, 0.0009989999999999721, 0.0009990000000000276, 0.0009989999999999721, 0.0009990000000000276, 0.0009989999999999721, 0.0009990000000000276, 0.0009989999999999721, 0.0009990000000000276], expected 0.002"
+    },
+    {
+      "name": "pwm_clock_gated",
+      "passed": false,
+      "error": "clock-gated PWM continued"
+    },
+    {
+      "name": "pwm_clock_resumed",
+      "passed": false,
+      "error": "pwm_clock_resumed: periods [0.0009989999999999721, 0.0009990000000000276, 0.0009989999999999721, 0.0009990000000000276, 0.0009989999999999721, 0.0009990000000000276, 0.0009989999999999721, 0.0009990000000000276, 0.0009989999999999721], expected 0.002"
+    }
+  ],
+  "passed": 15,
+  "total": 58,
+  "renode": "Renode v1.17.0\n  build: 1.17.0+20260907gitf1dd1b4af\n  build type: Release\n  runtime: .NET 8.0.12",
+  "compiler": "arm-none-eabi-gcc (xPack GNU Arm Embedded GCC x86_64) 15.2.1 20251203",
+  "renode_source": "ab721d88e135a1bcb8ed2ecc5a38f51cbe61fdd2",
+  "infrastructure_source": "066a7f13c052215632d469c995c89aea37c573b1",
+  "firmware_sha256": "5b80081eea2af56d9fde9fe10d809fc08b0918c5fe26fdbeeb390c592d2bb8f0",
+  "trace_sha256": "ad293d5c2249d4b27222a0d6afc12c1d8d1e09e52e9d74abe29c5f6aff330205"
+}

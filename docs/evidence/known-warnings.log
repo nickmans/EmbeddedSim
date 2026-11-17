@@ -1,0 +1,2 @@
+[09:54:38.8322]  [WARNING] flash_controller: Unhandled write to offset 0x0. Unhandled bits: [8-10] when writing value 0x705. Tags: PRFTEN (0x1), ICEN (0x1), DCEN (0x1).
+[09:54:38.8322]  [WARNING] flash_controller: Unhandled write to offset 0x0. Unhandled bits: [8-10] when writing value 0x705. Tags: PRFTEN (0x1), ICEN (0x1), DCEN (0x1).

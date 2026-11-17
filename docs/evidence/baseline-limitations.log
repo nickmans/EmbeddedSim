@@ -1,0 +1,2 @@
+CONFIRMED LIMITATION: CEN=0 still counts an encoder edge (CNT=1, expected 0)
+CONFIRMED LIMITATION: RCC APB1 /4 leaves PWM period 0.000999000s (expected about 0.002s)

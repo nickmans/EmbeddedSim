@@ -1,0 +1,245 @@
+{
+  "profile": "patched",
+  "checks": [
+    {
+      "name": "pwm0",
+      "passed": true
+    },
+    {
+      "name": "pwm_preloaded0",
+      "passed": true
+    },
+    {
+      "name": "pwm1",
+      "passed": true
+    },
+    {
+      "name": "pwm_preloaded1",
+      "passed": true
+    },
+    {
+      "name": "pwm2",
+      "passed": true
+    },
+    {
+      "name": "pwm_preloaded2",
+      "passed": true
+    },
+    {
+      "name": "pwm3",
+      "passed": true
+    },
+    {
+      "name": "pwm_preloaded3",
+      "passed": true
+    },
+    {
+      "name": "constant0",
+      "passed": true
+    },
+    {
+      "name": "constant1000",
+      "passed": true
+    },
+    {
+      "name": "constant1200",
+      "passed": true
+    },
+    {
+      "name": "pwm_for_gpio",
+      "passed": true
+    },
+    {
+      "name": "pwm_input_mode",
+      "passed": true
+    },
+    {
+      "name": "pwm_wrong_af",
+      "passed": true
+    },
+    {
+      "name": "pwm_af_restored",
+      "passed": true
+    },
+    {
+      "name": "enc_forward",
+      "passed": true
+    },
+    {
+      "name": "enc_reverse",
+      "passed": true
+    },
+    {
+      "name": "enc_disabled",
+      "passed": true
+    },
+    {
+      "name": "enc_reenabled",
+      "passed": true
+    },
+    {
+      "name": "enc_clock_gated",
+      "passed": true
+    },
+    {
+      "name": "enc_clock_resumed",
+      "passed": true
+    },
+    {
+      "name": "enc_reset",
+      "passed": true
+    },
+    {
+      "name": "enc_reset_reinit",
+      "passed": true
+    },
+    {
+      "name": "enc_wrap",
+      "passed": true
+    },
+    {
+      "name": "enc_underflow",
+      "passed": true
+    },
+    {
+      "name": "enc_input_mode",
+      "passed": true
+    },
+    {
+      "name": "enc_wrong_af",
+      "passed": true
+    },
+    {
+      "name": "enc_af_restored",
+      "passed": true
+    },
+    {
+      "name": "psc_buffer",
+      "passed": true
+    },
+    {
+      "name": "arr_buffer",
+      "passed": true
+    },
+    {
+      "name": "ccr_buffer",
+      "passed": true
+    },
+    {
+      "name": "ug_first_cycle",
+      "passed": true
+    },
+    {
+      "name": "ug_transfer",
+      "passed": true
+    },
+    {
+      "name": "irq_periodic",
+      "passed": true
+    },
+    {
+      "name": "irq_stopped",
+      "passed": true
+    },
+    {
+      "name": "irq_resumed",
+      "passed": true
+    },
+    {
+      "name": "irq_clock_gated",
+      "passed": true
+    },
+    {
+      "name": "irq_clock_resumed",
+      "passed": true
+    },
+    {
+      "name": "irq_reset",
+      "passed": true
+    },
+    {
+      "name": "ug_uif_without_uie",
+      "passed": true
+    },
+    {
+      "name": "hsi_div1",
+      "passed": true
+    },
+    {
+      "name": "hsi_div1_irq",
+      "passed": true
+    },
+    {
+      "name": "hsi_apb2",
+      "passed": true
+    },
+    {
+      "name": "hsi_apb2_irq",
+      "passed": true
+    },
+    {
+      "name": "hsi_apb4",
+      "passed": true
+    },
+    {
+      "name": "hsi_apb4_irq",
+      "passed": true
+    },
+    {
+      "name": "hsi_ahb2_apb4",
+      "passed": true
+    },
+    {
+      "name": "hsi_ahb2_apb4_irq",
+      "passed": true
+    },
+    {
+      "name": "hse8",
+      "passed": true
+    },
+    {
+      "name": "hse8_irq",
+      "passed": true
+    },
+    {
+      "name": "pll168_apb4",
+      "passed": true
+    },
+    {
+      "name": "pll168_apb4_irq",
+      "passed": true
+    },
+    {
+      "name": "pll168_apb8",
+      "passed": true
+    },
+    {
+      "name": "pll168_apb8_irq",
+      "passed": true
+    },
+    {
+      "name": "running_clock_change",
+      "passed": true
+    },
+    {
+      "name": "pwm_clock_gated",
+      "passed": true
+    },
+    {
+      "name": "pwm_clock_resumed",
+      "passed": true
+    }
+  ],
+  "passed": 57,
+  "total": 57,
+  "renode": "Renode v1.17.0\n  build: 1.17.0+20260907gitf1dd1b4af\n  build type: Release\n  runtime: .NET 8.0.12",
+  "compiler": "arm-none-eabi-gcc (xPack GNU Arm Embedded GCC x86_64) 15.2.1 20251203",
+  "renode_source": "ab721d88e135a1bcb8ed2ecc5a38f51cbe61fdd2",
+  "infrastructure_source": "066a7f13c052215632d469c995c89aea37c573b1",
+  "firmware_sha256": "5b80081eea2af56d9fde9fe10d809fc08b0918c5fe26fdbeeb390c592d2bb8f0",
+  "trace_sha256": "a1dd899fab0b880401ce09316669ff6891a527046e4baade7b8865cee37141c6",
+  "compiled_source_sha256": {
+    "QualifiedSTM32RCC.cs": "932171f01b62efd5b39cb94fcf3db505a184e84e7eb5c6bc9df3258af477e90b",
+    "QualifiedSTM32Timer.cs": "0af2cceeed6230174c48029005a08538078907a71a361e74c7e27810893e0bde"
+  }
+}

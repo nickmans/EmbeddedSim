@@ -1,0 +1,269 @@
+--- STM32_Timer.cs
++++ STM32_Timer.cs
+@@ -23,7 +23,7 @@
+     [AllowedTranslations(AllowedTranslation.ByteToDoubleWord | AllowedTranslation.WordToDoubleWord)]
+     public class STM32_Timer : LimitTimer, IDoubleWordPeripheral, IKnownSize, INumberedGPIOOutput, IRegisterablePeripheral<IGPIOReceiver, NumberRegistrationPoint<int>>, IRegisterablePeripheral<IGPIOReceiver, NullRegistrationPoint>, IGPIOReceiver
+     {
+-        public STM32_Timer(IMachine machine, ulong frequency, uint initialLimit) : base(machine.ClockSource, frequency, limit: initialLimit, direction: Direction.Ascending, enabled: false, eventEnabled: true, autoUpdate: false)
++        public STM32_Timer(IMachine machine, ulong frequency, uint initialLimit) : base(machine.ClockSource, frequency, limit: (ulong)initialLimit + 1, direction: Direction.Ascending, enabled: false, eventEnabled: true, autoUpdate: false)
+         {
+             this.machine = machine;
+             sysbus = machine.GetSystemBus(this);
+@@ -59,7 +59,7 @@
+                     enableRequested = false;
+                 }
+ 
+-                Limit = autoReloadValue;
++                ApplyPreloads();
+                 this.Log(LogLevel.Noisy, "IRQ pending");
+                 updateInterruptFlag = true;
+ 
+@@ -67,7 +67,7 @@
+                 {
+                     var channel = channels[i];
+                     channel.UpdateTimer();
+-                    if(!channel.Timer.Enabled || !channel.IsOutputMode)
++                    if(!channel.OutputEnable || !channel.IsOutputMode)
+                     {
+                         continue;
+                     }
+@@ -75,10 +75,10 @@
+                     switch(channel.CompareMode.Value)
+                     {
+                     case OutputCompareMode.PwmMode1:
+-                        channel.Connection.Set();
++                        channel.Connection.Set(channel.ActiveCompare > 0);
+                         break;
+                     case OutputCompareMode.PwmMode2:
+-                        channel.Connection.Unset();
++                        channel.Connection.Set(channel.ActiveCompare == 0);
+                         break;
+                     }
+                 }
+@@ -148,7 +148,7 @@
+                         {
+                             return;
+                         }
+-                        Enabled = enableRequested && autoReloadValue > 0;
++                        Enabled = clockEnabled && !IsEncoderMode && enableRequested && autoReloadValue > 0;
+                     }, valueProviderCallback: _ => enableRequested, name: "Counter enable (CEN)")
+                     .WithFlag(1, out updateDisable, name: "Update disable (UDIS)")
+                     .WithFlag(2, out updateRequestSource, name: "Update request source (URS)")
+@@ -200,7 +200,7 @@
+                         }
+                         else
+                         {
+-                            Enabled = enableRequested && autoReloadValue > 0;
++                            Enabled = clockEnabled && !IsEncoderMode && enableRequested && autoReloadValue > 0;
+                         }
+                     }, name: "Slave mode selection (SMS)")
+                     .WithTaggedFlag("OCREF clear selection (OCCS)", 3)
+@@ -265,7 +265,7 @@
+                 {(long)Registers.EventGeneration, new DoubleWordRegister(this)
+                     .WithFlag(0, FieldMode.WriteOneToClear, writeCallback: (_, val) =>
+                     {
+-                        if(updateDisable.Value)
++                        if(!val || updateDisable.Value)
+                         {
+                             return;
+                         }
+@@ -278,9 +278,11 @@
+                             Value = autoReloadValue;
+                         }
+ 
++                        ApplyPreloads();
++                        UpdateCaptureCompareTimers();
+                         repetitionsLeft = (uint)repetitionCounter.Value;
+ 
+-                        if(!updateRequestSource.Value && updateInterruptEnable.Value)
++                        if(!updateRequestSource.Value)
+                         {
+                             this.Log(LogLevel.Noisy, "IRQ pending");
+                             updateInterruptFlag = true;
+@@ -346,25 +348,19 @@
+                     })
+                 },
+                 {(long)Registers.Prescaler, new DoubleWordRegister(this)
+-                    .WithValueField(0, 16, writeCallback: (_, val) => Divider = val + 1, valueProviderCallback: _ => (uint)Divider - 1, name: "Prescaler value (PSC)")
++                    .WithValueField(0, 16, writeCallback: (_, val) => pendingPrescaler = (uint)val,
++                        valueProviderCallback: _ => pendingPrescaler, name: "Prescaler value (PSC)")
+                     .WithReservedBits(16, 16)
+-                    .WithWriteCallback((_, __) =>
+-                    {
+-                        for(var i = 0; i < NumberOfCCChannels; ++i)
+-                        {
+-                            channels[i].Timer.Divider = Divider;
+-                        }
+-                        UpdateInterrupts();
+-                    })
+                 },
+                 {(long)Registers.AutoReload, new DoubleWordRegister(this)
+                     .WithValueField(0, timerCounterLengthInBits, writeCallback: (_, val) =>
+                     {
+                         autoReloadValue = (uint)val;
+-                        Enabled = enableRequested && autoReloadValue > 0;
++                        Enabled = clockEnabled && !IsEncoderMode && enableRequested && autoReloadValue > 0;
+                         if(!autoReloadPreloadEnable.Value)
+                         {
+-                            Limit = autoReloadValue;
++                            Limit = (ulong)autoReloadValue + 1;
++                            UpdateCaptureCompareTimers();
+                         }
+                     }, valueProviderCallback: _ => autoReloadValue, name: "Auto-reload value (ARR)")
+                     .WithReservedBits(timerCounterLengthInBits, 32 - timerCounterLengthInBits)
+@@ -393,13 +389,13 @@
+             {
+                 var j = i;
+                 registers.AddConditionalRegister((long)Registers.CaptureOrCompare1 + (j * 0x4), new DoubleWordRegister(this)
+-                    .WithValueField(0, timerCounterLengthInBits, valueProviderCallback: _ => channels[j].Timer.Limit, writeCallback: (_, val) =>
++                    .WithValueField(0, timerCounterLengthInBits, valueProviderCallback: _ => channels[j].CompareValue, writeCallback: (_, val) =>
+                     {
+-                        if(val == 0)
++                        channels[j].CompareValue = (uint)val;
++                        if(!channels[j].PreloadEnable)
+                         {
+-                            channels[j].Timer.Enabled = false;
++                            channels[j].ActiveCompare = (uint)val;
+                         }
+-                        channels[j].Timer.Limit = val;
+                     }, name: String.Format("Capture/compare value {0} (CCR{0})", j + 1))
+                     .WithReservedBits(timerCounterLengthInBits, 32 - timerCounterLengthInBits)
+                     .WithWriteCallback((_, __) =>
+@@ -434,7 +430,7 @@
+                 {
+                     register
+                         .WithTaggedFlag($"Output compare {idx + 1} fast enable (OC{idx + 1}FE)", bitOffset + 2)
+-                        .WithTaggedFlag($"Output compare {idx + 1} preload enable (OC{idx + 1}PE)", bitOffset + 3)
++                        .WithFlag(bitOffset + 3, valueProviderCallback: _ => channel.PreloadEnable, writeCallback: (_, val) => channel.PreloadEnable = val, name: $"Output compare {idx + 1} preload enable (OC{idx + 1}PE)")
+                         .WithEnumField(bitOffset + 4, 3, out channel.CompareMode,
+                             writeCallback: (_, val) =>
+                             {
+@@ -558,7 +554,8 @@
+             registers.Reset();
+             autoReloadValue = initialLimit;
+             enableRequested = false;
+-            Limit = initialLimit;
++            Limit = (ulong)initialLimit + 1;
++            pendingPrescaler = 0;
+             repetitionsLeft = 0;
+             updateInterruptFlag = false;
+             for(var i = 0; i < NumberOfCCChannels; ++i)
+@@ -585,6 +582,32 @@
+ 
+         public long Size => 0x400;
+ 
++        public void SetClock(ulong frequency, bool enabled)
++        {
++            clockEnabled = enabled;
++            if(Frequency != frequency) Frequency = frequency;
++            foreach(var channel in channels)
++            {
++                if(channel.Timer.Frequency != frequency) channel.Timer.Frequency = frequency;
++            }
++            Enabled = clockEnabled && !IsEncoderMode && enableRequested && autoReloadValue > 0;
++            UpdateCaptureCompareTimers();
++        }
++
++        private void ApplyPreloads()
++        {
++            Limit = (ulong)autoReloadValue + 1;
++            Divider = (ulong)pendingPrescaler + 1;
++            foreach(var channel in channels)
++            {
++                channel.ActiveCompare = channel.CompareValue;
++                channel.Timer.Divider = Divider;
++            }
++        }
++
++        private uint pendingPrescaler;
++        private bool clockEnabled = true;
++
+         private static int InputPrescalerDivider(InputPrescaler p)
+         {
+             switch(p)
+@@ -630,13 +653,27 @@
+ 
+         private void HandleEncoderMode(int tiSource, bool value)
+         {
+-            if(tiSource == 0 && (IsEncoderMode1 || IsEncoderMode3))
++            // Track pin levels while stopped, but only count enabled clocked edges.
++            if(!clockEnabled || !enableRequested || tiSource > 1
++                || !channels[0].OutputEnable || !channels[1].OutputEnable)
++            {
++                return;
++            }
++            if((tiSource == 0 && !(IsEncoderMode2 || IsEncoderMode3))
++                || (tiSource == 1 && !(IsEncoderMode1 || IsEncoderMode3)))
+             {
+-                Value = (value ^ channels[1].Connection.IsSet) ? Value + 1 : Value - 1;
++                return;
+             }
+-            else if(tiSource == 1 && (IsEncoderMode2 || IsEncoderMode3))
++            var a = channels[0].Connection.IsSet ^ channels[0].Polarity.Value;
++            var b = channels[1].Connection.IsSet ^ channels[1].Polarity.Value;
++            var ascending = tiSource == 0 ? a ^ b : !(a ^ b);
++            Direction = ascending ? Direction.Ascending : Direction.Descending;
++            var wrap = ascending ? Value >= autoReloadValue : Value == 0;
++            Value = ascending ? (wrap ? 0 : Value + 1) : (wrap ? autoReloadValue : Value - 1);
++            if(wrap && !updateDisable.Value)
+             {
+-                Value = (value ^ channels[0].Connection.IsSet) ? Value - 1 : Value + 1;
++                updateInterruptFlag = true;
++                UpdateInterrupts();
+             }
+         }
+ 
+@@ -675,7 +712,7 @@
+ 
+             if(value && !Enabled)
+             {
+-                Enabled = enableRequested && autoReloadValue > 0;
++                Enabled = clockEnabled && !IsEncoderMode && enableRequested && autoReloadValue > 0;
+             }
+         }
+ 
+@@ -820,6 +857,8 @@
+                 OutputEnable = false;
+                 EdgeCounter = 0;
+                 Mode = CaptureCompareSelection.Output;
++                CompareValue = ActiveCompare = 0;
++                PreloadEnable = false;
+                 Signal = false;
+                 Connection.Unset();
+             }
+@@ -844,7 +883,23 @@
+ 
+             public void UpdateTimer()
+             {
+-                Timer.Enabled = parent.Enabled && IsInterruptOrOutputEnabled && parent.Value < Timer.Limit;
++                if(IsOutputMode)
++                {
++                    // LimitTimer periods are exclusive; CCR is a compare threshold.
++                    Timer.Enabled = false;
++                    Timer.Limit = Math.Max(1UL, ActiveCompare);
++                    Timer.Enabled = parent.Enabled && IsInterruptOrOutputEnabled
++                        && parent.Value < ActiveCompare && ActiveCompare < parent.Limit;
++                    if(OutputEnable && (CompareMode.Value == OutputCompareMode.PwmMode1 || CompareMode.Value == OutputCompareMode.PwmMode2))
++                    {
++                        var active = parent.Value < ActiveCompare;
++                        Connection.Set((CompareMode.Value == OutputCompareMode.PwmMode1 ? active : !active) ^ Polarity.Value);
++                    }
++                }
++                else
++                {
++                    Timer.Enabled = false;
++                }
+                 if(Timer.Enabled)
+                 {
+                     Timer.Value = parent.Value;
+@@ -852,6 +907,10 @@
+                 Timer.Direction = parent.Direction;
+             }
+ 
++            public uint CompareValue;
++            public uint ActiveCompare;
++            public bool PreloadEnable;
++
+             public InputCaptureEdge CaptureEdge => (InputCaptureEdge)(((Polarity.Value ? 1 : 0) << 1) | (ComplementaryPolarity.Value ? 1 : 0));
+ 
+             public bool IsInputMode => Mode == CaptureCompareSelection.InputTiSame || Mode == CaptureCompareSelection.InputTiCross || Mode == CaptureCompareSelection.InputTrc;

@@ -1,0 +1,6 @@
+experiments/renode-smoke/out/
+__pycache__/
+tests/peripherals/out/
+emulation/renode/out/
+tests/closed_loop/out/
+tests/robot/out/

@@ -1,0 +1,148 @@
+{
+  "physics": {
+    "status": "passed",
+    "csv_sha256": "85ff8d74e2ebe599b2d79fe9a37814c3432959f9e4466e3aaafb19642ad8c1c7"
+  },
+  "main": {
+    "step_ns": 25000,
+    "elf_sha256": "a023be1230064d97dfe533277f759367d98b65488fa6cb6437508ffa5a0643d8",
+    "left_count": 4253,
+    "right_count": 19317,
+    "max_step_s": 2.5000000000829914e-05,
+    "csv_sha256": "01c8c858c120bb8c60c080b3aa4e77079de7169490292d166ad68aaf6227d74e",
+    "metrics": {
+      "1.7_l_mean_speed_error": 0.00047414680439388234,
+      "1.7_r_mean_speed_error": 0.011565695951918541,
+      "4.1_l_mean_speed_error": 0.00556810374053196,
+      "4.1_r_mean_speed_error": 0.008551364046397402,
+      "6.7_l_mean_speed_error": 0.004432295979963641,
+      "6.7_r_mean_speed_error": 0.001942435004524512,
+      "9.3_l_mean_speed_error": 0.0014308503022963937,
+      "9.3_r_mean_speed_error": 0.00024234709693748968,
+      "max_position_error_m": 0.000579173011698242,
+      "max_heading_error_rad": 0.0019107567236571477
+    },
+    "convergence": {
+      "position_max_m": 5.581821857057402e-05,
+      "heading_max_rad": 8.227490978240937e-05,
+      "wheel_speed_max_rad_s": 0.004200838253151318
+    }
+  },
+  "repeat": {
+    "step_ns": 25000,
+    "elf_sha256": "a023be1230064d97dfe533277f759367d98b65488fa6cb6437508ffa5a0643d8",
+    "left_count": 4253,
+    "right_count": 19317,
+    "max_step_s": 2.5000000000829914e-05,
+    "csv_sha256": "01c8c858c120bb8c60c080b3aa4e77079de7169490292d166ad68aaf6227d74e",
+    "metrics": {
+      "1.7_l_mean_speed_error": 0.00047414680439388234,
+      "1.7_r_mean_speed_error": 0.011565695951918541,
+      "4.1_l_mean_speed_error": 0.00556810374053196,
+      "4.1_r_mean_speed_error": 0.008551364046397402,
+      "6.7_l_mean_speed_error": 0.004432295979963641,
+      "6.7_r_mean_speed_error": 0.001942435004524512,
+      "9.3_l_mean_speed_error": 0.0014308503022963937,
+      "9.3_r_mean_speed_error": 0.00024234709693748968,
+      "max_position_error_m": 0.000579173011698242,
+      "max_heading_error_rad": 0.0019107567236571477
+    }
+  },
+  "pause": {
+    "step_ns": 25000,
+    "elf_sha256": "a023be1230064d97dfe533277f759367d98b65488fa6cb6437508ffa5a0643d8",
+    "left_count": 4253,
+    "right_count": 19317,
+    "max_step_s": 2.5000000000829914e-05,
+    "csv_sha256": "01c8c858c120bb8c60c080b3aa4e77079de7169490292d166ad68aaf6227d74e",
+    "metrics": {
+      "1.7_l_mean_speed_error": 0.00047414680439388234,
+      "1.7_r_mean_speed_error": 0.011565695951918541,
+      "4.1_l_mean_speed_error": 0.00556810374053196,
+      "4.1_r_mean_speed_error": 0.008551364046397402,
+      "6.7_l_mean_speed_error": 0.004432295979963641,
+      "6.7_r_mean_speed_error": 0.001942435004524512,
+      "9.3_l_mean_speed_error": 0.0014308503022963937,
+      "9.3_r_mean_speed_error": 0.00024234709693748968,
+      "max_position_error_m": 0.000579173011698242,
+      "max_heading_error_rad": 0.0019107567236571477
+    }
+  },
+  "half": {
+    "step_ns": 12500,
+    "elf_sha256": "a023be1230064d97dfe533277f759367d98b65488fa6cb6437508ffa5a0643d8",
+    "left_count": 4253,
+    "right_count": 19317,
+    "max_step_s": 1.2500000000414957e-05,
+    "csv_sha256": "9f2b63c8bfc661f43d7c4add1c659bdf8fabe352bf9b8297fd8fe0fa734911fd",
+    "metrics": {
+      "1.7_l_mean_speed_error": 0.0005036959553224918,
+      "1.7_r_mean_speed_error": 0.011557432564328885,
+      "4.1_l_mean_speed_error": 0.005563635565623848,
+      "4.1_r_mean_speed_error": 0.008564757370440646,
+      "6.7_l_mean_speed_error": 0.004404767796986804,
+      "6.7_r_mean_speed_error": 0.0019629917277780963,
+      "9.3_l_mean_speed_error": 0.0013961275504750237,
+      "9.3_r_mean_speed_error": 0.00025055190589573506,
+      "max_position_error_m": 0.0005761035408862154,
+      "max_heading_error_rad": 0.0018756627897507092
+    },
+    "convergence": {
+      "position_max_m": 9.892309872281156e-06,
+      "heading_max_rad": 1.9940911406557404e-05,
+      "wheel_speed_max_rad_s": 0.002183002287727831
+    }
+  },
+  "quarter": {
+    "step_ns": 6250,
+    "elf_sha256": "a023be1230064d97dfe533277f759367d98b65488fa6cb6437508ffa5a0643d8",
+    "left_count": 4253,
+    "right_count": 19317,
+    "max_step_s": 6.2500000002074785e-06,
+    "csv_sha256": "060d22b315f95fbd8aeb295fd1f00f7f324baa7ca3b0c61c395a12547124264b",
+    "metrics": {
+      "1.7_l_mean_speed_error": 0.0004907519025417528,
+      "1.7_r_mean_speed_error": 0.011555407211472435,
+      "4.1_l_mean_speed_error": 0.005565005402586465,
+      "4.1_r_mean_speed_error": 0.008587141579284108,
+      "6.7_l_mean_speed_error": 0.004405906217663347,
+      "6.7_r_mean_speed_error": 0.001963312645377968,
+      "9.3_l_mean_speed_error": 0.0013998100178114203,
+      "9.3_r_mean_speed_error": 0.0002437586771357747,
+      "max_position_error_m": 0.0005760811829705084,
+      "max_heading_error_rad": 0.0018923993388204607
+    }
+  },
+  "noload": {
+    "step_ns": 25000,
+    "elf_sha256": "a023be1230064d97dfe533277f759367d98b65488fa6cb6437508ffa5a0643d8",
+    "left_count": 4253,
+    "right_count": 19292,
+    "max_step_s": 2.5000000000829914e-05,
+    "csv_sha256": "ec3fabffe6e6efe9ebe192e366e6cc52d42e401377e496ee75272293a6a2152c",
+    "metrics": {
+      "1.7_l_mean_speed_error": 0.0010020362395961157,
+      "1.7_r_mean_speed_error": 0.0010020362395961157,
+      "4.1_l_mean_speed_error": 0.005442288715243215,
+      "4.1_r_mean_speed_error": 0.0061101576318078445,
+      "6.7_l_mean_speed_error": 0.00437917614990931,
+      "6.7_r_mean_speed_error": 0.0007370630872944872,
+      "9.3_l_mean_speed_error": 0.0013905649518990426,
+      "9.3_r_mean_speed_error": 0.00013284302361582512,
+      "max_position_error_m": 0.0005730242000863139,
+      "max_heading_error_rad": 0.0018959371762741206
+    }
+  },
+  "provenance": {
+    "sources": {
+      "models/Motor.cs": "a84cea66988f6d73385f4960c5523ac92c10a5384d15eb053d9fa809aef66a67",
+      "models/DifferentialDrive.cs": "51199709e5d3845c880881dc0caffa57e6a2ceb84dd898038b4fbd89a0ed1278",
+      "integration/renode/RobotLoop.cs": "4afa6477d8866c64e2ea155134f2e9a5d65ea9ecc386b247c797cfcdcb61bbad",
+      "tests/robot/PhysicsChecks.cs": "fb7df2549e23dfa462d471d7e202fcea65050e02809df98c7983922232f4a068",
+      "firmware/robot/controller.c": "6aeaf26fe5c947deecc5dc728c9117f664e76d34db29786f7c041badb9bb40b8",
+      "firmware/robot/hardware.h": "30e6824588f281fcd46097e02415ff3988435e5534e56899c37814354c3e3fae",
+      "docs/robot-contract.md": "9e19df1ceeab77bbd2dfe50a11f42bc3509d5a7a9b23a499c7445454da08863e"
+    },
+    "renode": "Renode v1.17.0\n  build: 1.17.0+20260907gitf1dd1b4af\n  build type: Release\n  runtime: .NET 8.0.12"
+  }
+}

@@ -1,0 +1,47 @@
+[09:27:56.3452] [INFO] Loaded monitor commands from: /workspace/tools/renode_1.17.0-portable/scripts/monitor.py
+Renode, version 1.17.0 (1.17.0+20260907gitf1dd1b4af)
+
+
+(monitor) i @/workspace/EmbeddedSim/experiments/renode-smoke/smoke.resc
+
+[09:27:56.4812] [INFO] Including script(s): /workspace/EmbeddedSim/experiments/renode-smoke/smoke.resc
+[09:27:58.0587] [INFO] System bus created.
+[09:27:58.6937] [INFO] SynopsysEthernetMAC: Bus width not specified, defaulting to Bits32
+[09:27:59.0159] [INFO] sysbus: Loading block of 436 bytes length at 0x8000000.
+[09:27:59.1369] [INFO] cpu: Guessing VectorTableOffset value to be 0x8000000.
+[09:27:59.1494] [INFO] cpu: Setting initial values: PC = 0x80000D5, SP = 0x20020000.
+[09:27:59.1514] [INFO] f407-smoke: Machine started.
+[09:28:01.0091] [INFO] f407-smoke: Machine paused.
+0xC0DEF407
+
+0x0000000A
+
+0x0000000A
+
+0x00000009
+
+0.0009989999999999999
+
+0.0002499999999999985
+
+[09:28:01.0803] [INFO] f407-smoke: Machine resumed.
+[09:28:01.2836] [INFO] f407-smoke: Machine paused.
+0x00000004
+
+[09:28:01.2876] [INFO] f407-smoke: Machine resumed.
+[09:28:01.4667] [INFO] f407-smoke: Machine paused.
+0x00000000
+
+[Domain = Elapsed Virtual Time: 00:00:00.012000000
+Elapsed Host Time: 00:00:02.237866700
+Current load: 174.51612903225808
+Cumulative load: 186.48889166666666
+State: Idle
+Advance immediately: False
+Quantum: 00:00:00.000100000, TimeElapsed = 00:00:00.012000000]
+
+Renode is quitting
+
+[09:28:01.5120] [INFO] f407-smoke: Disposed.
+
+PASS: ELF boot marker, 10 firmware IRQs, external PWM edges/timing, +4/-4 encoder feedback, 12 ms virtual time

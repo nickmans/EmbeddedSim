@@ -1,0 +1,25 @@
+include @/workspace/EmbeddedSim/experiments/renode-smoke/EdgeProbe.cs
+mach create "f407-smoke"
+machine LoadPlatformDescription @/workspace/EmbeddedSim/experiments/renode-smoke/out/stm32f4-hsi.repl
+sysbus LoadELF @/workspace/EmbeddedSim/experiments/renode-smoke/out/firmware.elf
+emulation RunFor "0.010"
+sysbus ReadDoubleWord 0x20000000
+sysbus ReadDoubleWord 0x20000004
+sysbus.gpioPortA.probe Rising
+sysbus.gpioPortA.probe Falling
+sysbus.gpioPortA.probe Period
+sysbus.gpioPortA.probe HighTime
+sysbus.gpioPortA OnGPIO 6 true
+sysbus.gpioPortA OnGPIO 7 true
+sysbus.gpioPortA OnGPIO 6 false
+sysbus.gpioPortA OnGPIO 7 false
+emulation RunFor "0.001"
+sysbus ReadDoubleWord 0x20000008
+sysbus.gpioPortA OnGPIO 7 true
+sysbus.gpioPortA OnGPIO 6 true
+sysbus.gpioPortA OnGPIO 7 false
+sysbus.gpioPortA OnGPIO 6 false
+emulation RunFor "0.001"
+sysbus ReadDoubleWord 0x20000008
+machine ElapsedVirtualTime
+quit

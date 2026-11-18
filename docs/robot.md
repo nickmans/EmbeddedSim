@@ -239,7 +239,7 @@ six robot runs, all nine existing single-motor cases and model checks,
 
 ![Wheel, current, direction and odometry traces](evidence/robot-timeseries.png)
 
-## Limits and smallest viewer recommendation
+## Model limitations
 
 The selected planar loop has no required blocker. It assumes perfect rolling,
 an axle-centred rigid body and ideal passive support. There are no collision,
@@ -255,11 +255,8 @@ specified trajectories at the three resolutions. Cross-platform bitwise
 identity and process-restart snapshots remain untested. The earlier limited
 STM32 peripheral scope still applies outside this newly qualified profile.
 
-The smallest useful next viewer is a **read-only 2D CSV replay**: axle/wheel
-glyph, ground-truth/odometry paths, heading, playback/scrub controls and a
-small wheel/current/direction plot. Playback time must not become the physics
-clock. That would make current traces inspectable without a live-control
-protocol or component editor. No viewer was built in this milestone.
+Use the [recorded replay viewer](../viewer/README.md) to inspect the
+trajectory, firmware odometry, and recorded signals in a browser.
 
 [1] [Pinned F4 platform mappings](https://github.com/renode/renode/blob/ab721d88e135a1bcb8ed2ecc5a38f51cbe61fdd2/platforms/cpus/stm32f4.repl),
 with the existing [peripheral qualification](peripheral-qualification.md)

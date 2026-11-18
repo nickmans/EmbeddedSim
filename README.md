@@ -3,7 +3,7 @@
 Embedded robotics simulator with a headless planar differential-drive robot:
 compiled STM32 firmware controls two torque-driven wheels through real PWM,
 direction GPIO and independent encoder timers. Physical values are illustrative;
-no hardware validation or GUI is claimed.
+the model has not been validated against physical hardware.
 
 Build firmware, qualify added pins/timers, run the robot, export trajectory
 and telemetry, and run all existing motor/peripheral/GDB regressions:
@@ -15,6 +15,10 @@ bash tests/robot/check.sh
 See [robot equations, hardware profile and results](docs/robot.md).
 Robot CSV/PNG/JSON are in `tests/robot/out/`. The original single-motor
 demonstration below remains runnable with its original hardware profile.
+
+Generate the main recording and serve the [2D replay viewer](viewer/README.md)
+with `bash viewer/demo.sh`. Open http://127.0.0.1:8765/viewer/ to inspect the
+trajectory and telemetry or load another local robot CSV.
 
 Build firmware, run all motor scenarios, export plots/traces, and rerun the
 peripheral and GDB checks:

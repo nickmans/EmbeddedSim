@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recorded simulation replay · EmbeddedSim</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="viewer.mjs"></script>
+</head>
+<body>
+<main>
+  <header class="top">
+    <div>
+      <p class="brand"><span class="mark" aria-hidden="true">⌁</span> EmbeddedSim</p>
+      <h1>Recorded simulation replay</h1>
+      <p class="subtitle">STM32 differential-drive robot <span>·</span> Recorded telemetry</p>
+    </div>
+    <div class="files">
+      <button id="demo" type="button">Load demo</button>
+      <label class="button primary" for="file">Open CSV</label>
+      <input type="file" id="file" accept=".csv,text/csv" class="visually-hidden">
+    </div>
+  </header>
+  <div class="recording"><span id="source">Loading demo…</span><span id="metadata"></span></div>
+  <p id="error" role="alert" hidden></p>
+  <section class="dashboard" aria-label="Replay inspection">
+    <article class="panel scene-panel">
+      <div class="panel-head">
+        <h2>Trajectory</h2>
+        <div class="view-controls">
+          <button id="fit" type="button" disabled>Fit view</button>
+          <button id="follow" type="button" aria-pressed="false" disabled>Follow robot</button>
+        </div>
+      </div>
+      <div class="scene-wrap">
+        <canvas id="scene" role="img" aria-label="Metric trajectory map"></canvas>
+        <div class="map-legend"><span><i class="swatch truth"></i>Model ground truth</span><label><input id="odom" type="checkbox" checked disabled><i class="swatch odom"></i>Firmware odometry</label></div>
+      </div>
+      <div class="scene-note">Schematic axle <span>·</span> Track 0.30 m <span>·</span> Wheel radius 0.05 m</div>
+      <div class="transport">
+        <div class="transport-row">
+          <button type="button" class="primary" id="play" disabled>Play</button>
+          <button type="button" id="restart" disabled>Restart</button>
+          <label class="speed">Speed <select id="speed" disabled><option value=".25">0.25×</option><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></label>
+          <div class="clock"><output id="timestamp" for="scrub">—</output><span id="duration"></span></div>
+        </div>
+        <label for="scrub" class="visually-hidden">Simulation time</label>
+        <input type="range" id="scrub" min="0" max="1" step="any" value="0" disabled>
+        <div class="time-ends"><span id="start-time">—</span><span id="end-time">—</span></div>
+      </div>
+    </article>
+    <article class="panel inspector">
+      <div class="panel-head"><h2>Telemetry</h2><span id="sample-time"></span></div>
+      <div id="readouts"></div>
+    </article>
+    <article class="panel signals">
+      <div class="panel-head"><h2>Time series</h2><span>Simulation time · s</span></div>
+      <div id="plots"></div>
+    </article>
+  </section>
+  <details class="notes" open>
+    <summary>Model limitations and replay conventions</summary>
+    <p>Ideal rolling with no slip or collisions. Averaged motor drivers. Illustrative physical parameters. Not validated against physical hardware.</p>
+    <p>The schematic interpolates model position linearly and heading along the shortest angular arc. Telemetry shows the latest recorded sample at or before the cursor. Firmware odometry comes from encoder-derived firmware values.</p>
+  </details>
+</main>
+</body>
+</html>

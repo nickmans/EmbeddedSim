@@ -1,0 +1,358 @@
+{
+  "baseline": {
+    "assertion_exit": 0,
+    "mask_transitions": [],
+    "reference_changes": [
+      {
+        "at_s": 0.201,
+        "reference_rad_s": 10.0
+      },
+      {
+        "at_s": 2.001,
+        "reference_rad_s": 0.0
+      }
+    ],
+    "checks": [
+      {
+        "name": "Settled tracking before fault",
+        "metric": "tracking_mae",
+        "source": "model wheel speed and firmware reference",
+        "value": 0.37970638372545856,
+        "unit": "rad/s",
+        "max": 0.6,
+        "passed": true
+      },
+      {
+        "name": "Tracking through fault window",
+        "metric": "tracking_mae",
+        "source": "model wheel speed and firmware reference",
+        "value": 0.15283201039225164,
+        "unit": "rad/s",
+        "max": 2.0,
+        "passed": true
+      },
+      {
+        "name": "Shaft activity reaches GPIO through fault window",
+        "metric": "encoder_activity",
+        "source": "physical encoder and MCU GPIO transitions",
+        "unit": "edges",
+        "physical": 562,
+        "delivered": 562,
+        "min_physical": 200,
+        "min_delivered": 200,
+        "max_delivered": 3000,
+        "passed": true
+      },
+      {
+        "name": "Tracking after reconnection under unchanged reference",
+        "metric": "tracking_mae",
+        "source": "model wheel speed and firmware reference",
+        "value": 0.009788954089534363,
+        "unit": "rad/s",
+        "max": 1.0,
+        "passed": true
+      }
+    ],
+    "recording_sha256": "ac80c54937b1212f5756ffcc35ef95daeb8a0fd05f59ddf7a190c64a2148ffdb",
+    "windows": {
+      "normal": {
+        "start_s": 0.85,
+        "end_s": 0.95,
+        "model_speed_range_rad_s": [
+          9.52359133317155,
+          9.704875337927799
+        ],
+        "firmware_estimate_range_rad_s": [
+          9.433981895446777,
+          9.740777969360352
+        ],
+        "tracking_mae_rad_s": 0.3797063837254585,
+        "estimate_mae_rad_s": 0.030731863794017523,
+        "signed_pwm_range": [
+          0.05500000000002725,
+          0.0660000000000105
+        ],
+        "peak_abs_model_current_A": 0.14717097333541612,
+        "physical_A_edges": 314,
+        "delivered_A_edges": 314,
+        "final_physical_minus_firmware_counts": 7,
+        "final_position_error_m": 0.0005485255846999215
+      },
+      "fault": {
+        "start_s": 1.0,
+        "end_s": 1.175,
+        "model_speed_range_rad_s": [
+          9.771352443063883,
+          9.903895667472067
+        ],
+        "firmware_estimate_range_rad_s": [
+          9.740777969360352,
+          9.894176483154297
+        ],
+        "tracking_mae_rad_s": 0.15283201039225167,
+        "estimate_mae_rad_s": 0.02626013457339393,
+        "signed_pwm_range": [
+          0.04899999999996574,
+          0.05500000000013827
+        ],
+        "peak_abs_model_current_A": 0.08412397100634354,
+        "physical_A_edges": 562,
+        "delivered_A_edges": 562,
+        "final_physical_minus_firmware_counts": 7,
+        "final_position_error_m": 0.0005405237932478157
+      },
+      "reconnection": {
+        "start_s": 1.2,
+        "end_s": 1.3,
+        "model_speed_range_rad_s": [
+          9.915292128211496,
+          9.948836871764945
+        ],
+        "firmware_estimate_range_rad_s": [
+          9.894176483154297,
+          9.97087574005127
+        ],
+        "tracking_mae_rad_s": 0.06726541368082779,
+        "estimate_mae_rad_s": 0.03617387217768323,
+        "signed_pwm_range": [
+          0.04599999999999049,
+          0.04999999999988347
+        ],
+        "peak_abs_model_current_A": 0.045621585443228946,
+        "physical_A_edges": 324,
+        "delivered_A_edges": 324,
+        "final_physical_minus_firmware_counts": 7,
+        "final_position_error_m": 0.0005422731144502091
+      },
+      "unchanged_reference": {
+        "start_s": 1.65,
+        "end_s": 1.9,
+        "model_speed_range_rad_s": [
+          10.006580707926501,
+          10.011159390749484
+        ],
+        "firmware_estimate_range_rad_s": [
+          9.97087574005127,
+          10.047574043273926
+        ],
+        "tracking_mae_rad_s": 0.009788954089534365,
+        "estimate_mae_rad_s": 0.03829438166477521,
+        "signed_pwm_range": [
+          0.042999999999793204,
+          0.04700000000013027
+        ],
+        "peak_abs_model_current_A": 0.02958090816094498,
+        "physical_A_edges": 815,
+        "delivered_A_edges": 815,
+        "final_physical_minus_firmware_counts": 7,
+        "final_position_error_m": 0.0005624552667274907
+      },
+      "commanded_stop": {
+        "start_s": 2.05,
+        "end_s": 2.65,
+        "model_speed_range_rad_s": [
+          0.501804982901972,
+          8.289201264419102
+        ],
+        "firmware_estimate_range_rad_s": [
+          0.5368933081626892,
+          8.743690490722656
+        ],
+        "tracking_mae_rad_s": 2.783612631088476,
+        "estimate_mae_rad_s": 0.1487492715981256,
+        "signed_pwm_range": [
+          -0.31299999999978567,
+          -0.018999999999991246
+        ],
+        "peak_abs_model_current_A": 2.110477499680279,
+        "physical_A_edges": 543,
+        "delivered_A_edges": 543,
+        "final_physical_minus_firmware_counts": 0,
+        "final_position_error_m": 4.661160950070187e-05
+      }
+    }
+  },
+  "faulted": {
+    "assertion_exit": 1,
+    "mask_transitions": [
+      {
+        "at_s": 0.95,
+        "mask": 0
+      },
+      {
+        "at_s": 1.2,
+        "mask": -1
+      }
+    ],
+    "reference_changes": [
+      {
+        "at_s": 0.201,
+        "reference_rad_s": 10.0
+      },
+      {
+        "at_s": 2.001,
+        "reference_rad_s": 0.0
+      }
+    ],
+    "checks": [
+      {
+        "name": "Settled tracking before fault",
+        "metric": "tracking_mae",
+        "source": "model wheel speed and firmware reference",
+        "value": 0.37970638372545856,
+        "unit": "rad/s",
+        "max": 0.6,
+        "passed": true
+      },
+      {
+        "name": "Tracking through fault window",
+        "metric": "tracking_mae",
+        "source": "model wheel speed and firmware reference",
+        "value": 5.387440543977469,
+        "unit": "rad/s",
+        "max": 2.0,
+        "passed": false
+      },
+      {
+        "name": "Shaft activity reaches GPIO through fault window",
+        "metric": "encoder_activity",
+        "source": "physical encoder and MCU GPIO transitions",
+        "unit": "edges",
+        "physical": 879,
+        "delivered": 0,
+        "min_physical": 200,
+        "min_delivered": 200,
+        "max_delivered": 3000,
+        "passed": false
+      },
+      {
+        "name": "Tracking after reconnection under unchanged reference",
+        "metric": "tracking_mae",
+        "source": "model wheel speed and firmware reference",
+        "value": 0.7765032286802229,
+        "unit": "rad/s",
+        "max": 1.0,
+        "passed": true
+      }
+    ],
+    "recording_sha256": "43e1387dc1c8c781f4a83b28427d321392acbd4455fe45c3b4ad0c6f5cd4b475",
+    "windows": {
+      "normal": {
+        "start_s": 0.85,
+        "end_s": 0.95,
+        "model_speed_range_rad_s": [
+          9.52359133317155,
+          9.704875337927799
+        ],
+        "firmware_estimate_range_rad_s": [
+          9.433981895446777,
+          9.740777969360352
+        ],
+        "tracking_mae_rad_s": 0.3797063837254585,
+        "estimate_mae_rad_s": 0.030731863794017523,
+        "signed_pwm_range": [
+          0.05500000000002725,
+          0.0660000000000105
+        ],
+        "peak_abs_model_current_A": 0.14717097333541612,
+        "physical_A_edges": 314,
+        "delivered_A_edges": 313,
+        "final_physical_minus_firmware_counts": 7,
+        "final_position_error_m": 0.0005485255846999215
+      },
+      "fault": {
+        "start_s": 1.0,
+        "end_s": 1.175,
+        "model_speed_range_rad_s": [
+          11.382834848109493,
+          19.386313684748252
+        ],
+        "firmware_estimate_range_rad_s": [
+          -0.07669904083013535,
+          0.07669904083013535
+        ],
+        "tracking_mae_rad_s": 5.387440543977467,
+        "estimate_mae_rad_s": 15.385687423044207,
+        "signed_pwm_range": [
+          0.45000000000006146,
+          0.4899999999998794
+        ],
+        "peak_abs_model_current_A": 2.4481774992119574,
+        "physical_A_edges": 879,
+        "delivered_A_edges": 0,
+        "final_physical_minus_firmware_counts": 2097,
+        "final_position_error_m": 0.08333544860700338
+      },
+      "reconnection": {
+        "start_s": 1.2,
+        "end_s": 1.3,
+        "model_speed_range_rad_s": [
+          17.465192995564077,
+          20.976924787030494
+        ],
+        "firmware_estimate_range_rad_s": [
+          0.07669904083013535,
+          20.938838958740234
+        ],
+        "tracking_mae_rad_s": 9.48323629946946,
+        "estimate_mae_rad_s": 2.72302915973422,
+        "signed_pwm_range": [
+          -0.34599999999995745,
+          0.49199999999993693
+        ],
+        "peak_abs_model_current_A": 2.5623209212134883,
+        "physical_A_edges": 635,
+        "delivered_A_edges": 635,
+        "final_physical_minus_firmware_counts": 2432,
+        "final_position_error_m": 0.11652933145185286
+      },
+      "unchanged_reference": {
+        "start_s": 1.65,
+        "end_s": 1.9,
+        "model_speed_range_rad_s": [
+          10.408430500307103,
+          11.329802132798896
+        ],
+        "firmware_estimate_range_rad_s": [
+          10.431069374084473,
+          11.428156852722168
+        ],
+        "tracking_mae_rad_s": 0.7765032286802226,
+        "estimate_mae_rad_s": 0.045178421233433394,
+        "signed_pwm_range": [
+          -0.005999999999950489,
+          0.03100000000011427
+        ],
+        "peak_abs_model_current_A": 0.3159987987602595,
+        "physical_A_edges": 878,
+        "delivered_A_edges": 878,
+        "final_physical_minus_firmware_counts": 2427,
+        "final_position_error_m": 0.2718723025922321
+      },
+      "commanded_stop": {
+        "start_s": 2.05,
+        "end_s": 2.65,
+        "model_speed_range_rad_s": [
+          0.5233412166084811,
+          8.491845279704622
+        ],
+        "firmware_estimate_range_rad_s": [
+          0.5368933081626892,
+          8.897089004516602
+        ],
+        "tracking_mae_rad_s": 2.858599559727672,
+        "estimate_mae_rad_s": 0.1522034629220612,
+        "signed_pwm_range": [
+          -0.31999999999987594,
+          -0.018999999999991246
+        ],
+        "peak_abs_model_current_A": 2.158870789047208,
+        "physical_A_edges": 558,
+        "delivered_A_edges": 558,
+        "final_physical_minus_firmware_counts": 2421,
+        "final_position_error_m": 0.3605407077515266
+      }
+    }
+  },
+  "elf_sha256": "a023be1230064d97dfe533277f759367d98b65488fa6cb6437508ffa5a0643d8"
+}

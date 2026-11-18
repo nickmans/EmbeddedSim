@@ -32,6 +32,9 @@ if qualified:
 platform = (ROOT/'emulation/renode/stm32f407vg.repl').read_text()
 if args.stock:
     platform = platform.replace('QualifiedSTM32Timer','STM32_Timer').replace('QualifiedSTM32RCC','STM32F4_RCC')
+    platform = platform.replace(
+        'systickClock: Miscellaneous.STM32F407SysTickClock @ sysbus\n    nvic: nvic\n', ''
+    ).replace('    systickClock: systickClock\n', '')
     for i in (2,3,4):
         platform = platform.replace(f'    timer{i}: timer{i}\n','')
     platform = platform.split('encoder6:')[0]

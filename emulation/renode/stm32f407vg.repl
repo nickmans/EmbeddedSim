@@ -19,7 +19,10 @@ flash_controller: MTD.STM32F4_FlashController @ sysbus 0x40023C00
     flash: flash
 pwr: Miscellaneous.STM32_PWR @ sysbus 0x40007000
 rtc: Timers.STM32F4_RTC @ sysbus 0x40002800
+systickClock: Miscellaneous.STM32F407SysTickClock @ sysbus
+    nvic: nvic
 rcc: Miscellaneous.QualifiedSTM32RCC @ sysbus 0x40023800
+    systickClock: systickClock
     rtcPeripheral: rtc
     timer2: timer2
     timer3: timer3
@@ -52,3 +55,7 @@ encoder7: GPIOPort.STM32AFInput @ timer3
     IRQ -> timer3@1
 gpioPortA:
     7 -> encoder7@0
+
+// ARMv7-M peripheral bit-band alias.
+bitbandPeripherals: Miscellaneous.BitBanding @ sysbus <0x42000000, +0x2000000>
+    peripheralBase: 0x40000000

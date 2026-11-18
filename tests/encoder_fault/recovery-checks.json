@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "checks": [
+    {"name":"Settled tracking before fault", "metric":"tracking_mae", "wheel":"right", "start_s":0.85, "end_s":0.95, "max":0.6},
+    {"name":"Tracking through fault window", "metric":"tracking_mae", "wheel":"right", "start_s":1.0, "end_s":1.175, "max":2.0},
+    {"name":"Shaft activity reaches GPIO through fault window", "metric":"encoder_activity", "channel":"right.a", "start_s":1.0, "end_s":1.175, "min_physical_edges":200, "min_delivered_edges":200, "max_delivered_edges":3000},
+    {"name":"Tracking after reconnection under unchanged reference", "metric":"tracking_mae", "wheel":"right", "start_s":1.65, "end_s":1.9, "max":1.0}
+  ]
+}

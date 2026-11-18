@@ -1,0 +1,165 @@
+{
+  "initial_controlled_runs": [
+    {
+      "name": "normal-isolated",
+      "wall_s": 16.39,
+      "cpu_s_observed": {
+        "65782": 31.27
+      },
+      "leftovers": [],
+      "exit": 0,
+      "output": "Discover complete: /workspace/recovery-validation/normal-isolated/result.json (a023be123006)"
+    },
+    {
+      "name": "one-cpu-isolated",
+      "wall_s": 29.14,
+      "cpu_s_observed": {
+        "65818": 28.55
+      },
+      "leftovers": [],
+      "exit": 0,
+      "output": "Discover complete: /workspace/recovery-validation/one-cpu-isolated/result.json (a023be123006)"
+    },
+    {
+      "name": "native-parallel-1",
+      "wall_s": 34.28,
+      "cpu_s_observed": {
+        "66035": 30.43
+      },
+      "leftovers": [],
+      "exit": 0,
+      "output": "Discover complete: /workspace/recovery-validation/native-parallel-1/result.json (a023be123006)"
+    },
+    {
+      "name": "native-parallel-2",
+      "wall_s": 35.51,
+      "cpu_s_observed": {
+        "66059": 31.04
+      },
+      "leftovers": [],
+      "exit": 0,
+      "output": "Discover complete: /workspace/recovery-validation/native-parallel-2/result.json (a023be123006)"
+    },
+    {
+      "name": "native-parallel-0",
+      "wall_s": 36.87,
+      "cpu_s_observed": {
+        "66030": 35.81
+      },
+      "leftovers": [],
+      "exit": 0,
+      "output": "Discover complete: /workspace/recovery-validation/native-parallel-0/result.json (a023be123006)"
+    },
+    {
+      "name": "native-parallel-3",
+      "wall_s": 37.37,
+      "cpu_s_observed": {
+        "66051": 37.22
+      },
+      "leftovers": [],
+      "exit": 0,
+      "output": "Discover complete: /workspace/recovery-validation/native-parallel-3/result.json (a023be123006)"
+    },
+    {
+      "name": "one-cpu-parallel-2",
+      "wall_s": 46.07,
+      "cpu_s_observed": {
+        "66334": 11.08
+      },
+      "leftovers": [],
+      "exit": 1,
+      "output": "Discover exceeded the wall-clock limit. Inspect renode.log."
+    },
+    {
+      "name": "one-cpu-parallel-3",
+      "wall_s": 46.11,
+      "cpu_s_observed": {
+        "66326": 11.21
+      },
+      "leftovers": [],
+      "exit": 1,
+      "output": "Discover exceeded the wall-clock limit. Inspect renode.log."
+    },
+    {
+      "name": "one-cpu-parallel-0",
+      "wall_s": 46.12,
+      "cpu_s_observed": {
+        "66325": 11.11
+      },
+      "leftovers": [],
+      "exit": 1,
+      "output": "Discover exceeded the wall-clock limit. Inspect renode.log."
+    },
+    {
+      "name": "one-cpu-parallel-1",
+      "wall_s": 46.21,
+      "cpu_s_observed": {
+        "66333": 11.12
+      },
+      "leftovers": [],
+      "exit": 1,
+      "output": "Discover exceeded the wall-clock limit. Inspect renode.log."
+    }
+  ],
+  "progress_marker_runs": [
+    {
+      "name": "normal-isolated",
+      "wall_s": 13.26,
+      "observed_renode_cpu_s": {},
+      "exit": 0,
+      "last_stage": "EmbeddedSim discovery: snapshot 5/5",
+      "leftover_pids": [],
+      "output": "Discover complete: /workspace/recovery-validation/staged-discovery/normal-isolated/result.json (a023be123006)"
+    },
+    {
+      "name": "one-cpu-parallel-0",
+      "wall_s": 45.62,
+      "observed_renode_cpu_s": {},
+      "exit": 1,
+      "last_stage": "EmbeddedSim discovery: loading models and platform",
+      "leftover_pids": [],
+      "output": "Discovery exceeded its 45 s wall-clock limit. Inspect progress markers in /workspace/recovery-validation/staged-discovery/one-cpu-parallel-0/renode.log."
+    },
+    {
+      "name": "one-cpu-parallel-1",
+      "wall_s": 45.61,
+      "observed_renode_cpu_s": {},
+      "exit": 1,
+      "last_stage": "EmbeddedSim discovery: loading models and platform",
+      "leftover_pids": [],
+      "output": "Discovery exceeded its 45 s wall-clock limit. Inspect progress markers in /workspace/recovery-validation/staged-discovery/one-cpu-parallel-1/renode.log."
+    },
+    {
+      "name": "one-cpu-parallel-2",
+      "wall_s": 45.61,
+      "observed_renode_cpu_s": {},
+      "exit": 1,
+      "last_stage": "EmbeddedSim discovery: loading models and platform",
+      "leftover_pids": [],
+      "output": "Discovery exceeded its 45 s wall-clock limit. Inspect progress markers in /workspace/recovery-validation/staged-discovery/one-cpu-parallel-2/renode.log."
+    },
+    {
+      "name": "one-cpu-parallel-3",
+      "wall_s": 45.6,
+      "observed_renode_cpu_s": {},
+      "exit": 1,
+      "last_stage": "EmbeddedSim discovery: loading models and platform",
+      "leftover_pids": [],
+      "output": "Discovery exceeded its 45 s wall-clock limit. Inspect progress markers in /workspace/recovery-validation/staged-discovery/one-cpu-parallel-3/renode.log."
+    }
+  ],
+  "progress_marker_cpu_observation": [
+    {
+      "name": "normal-isolated",
+      "wall_s": 14.69,
+      "observed_renode_cpu_s": {
+        "71306": 27.74
+      },
+      "exit": 0,
+      "last_stage": "EmbeddedSim discovery: snapshot 5/5",
+      "leftover_pids": [],
+      "output": "Discover complete: /workspace/recovery-validation/discovery-final/normal-isolated/result.json (a023be123006)"
+    }
+  ],
+  "notes": "Process CPU counters were unavailable in the progress-marker series because its sampler tried a missing procfs children entry. The final isolated rerun used process stat sampling."
+}

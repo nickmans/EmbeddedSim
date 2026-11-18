@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Robot setup · EmbeddedSim</title>
+  <link rel="stylesheet" href="/viewer/style.css">
+  <link rel="stylesheet" href="/setup/style.css">
+  <script type="module" src="/setup/app.mjs"></script>
+</head>
+<body>
+<main>
+  <header class="top">
+    <div>
+      <p class="brand">EmbeddedSim</p>
+      <h1>Robot setup</h1>
+      <p class="subtitle">Configure firmware and physical wiring for live simulation or recorded replay.</p>
+    </div>
+    <div class="actions">
+      <a id="existing-live" class="button" hidden>Open live session</a>
+      <a class="button" href="/viewer/">Replay viewer</a>
+    </div>
+  </header>
+
+  <div class="setup-grid">
+    <section class="panel setup-card" aria-labelledby="hardware">
+      <h2 id="hardware">Robot and firmware</h2>
+      <div class="fields">
+        <label data-robot>Robot preset<select id="preset"><option value="differential-drive-v1">Two-wheel differential drive</option></select></label>
+        <label data-robot>World<select id="world"><option value="empty-flat-floor">Empty flat floor</option></select></label>
+        <label>MCU and profile<select id="target" required>
+          <option value="">Select target…</option>
+          <option value="stm32f407vgt6">STM32F407VGT6 · HSI16 robot</option>
+          <option value="pwm-signal-pll168-v1">STM32F407VGT6 · passive PLL168 discovery</option>
+        </select></label>
+        <label data-robot>Firmware observer<select id="observer">
+          <option value="none">None</option>
+          <option value="example-v1">EmbeddedSim example v1</option>
+        </select></label>
+      </div>
+      <div class="actions">
+        <label class="button" for="elf">Choose ELF</label>
+        <input type="file" id="elf" accept=".elf,application/octet-stream" class="visually-hidden">
+        <button id="example">Use example ELF</button>
+        <span id="firmware-name">No firmware selected</span>
+      </div>
+      <div class="actions">
+        <label class="button" for="import">Import JSON</label>
+        <input type="file" id="import" accept=".json,application/json" class="visually-hidden">
+        <button id="export">Export JSON</button>
+      </div>
+      <p class="hint">Select the MCU explicitly. ELF validation checks startup and memory layout. The selected peripheral profile still has to match the firmware.</p>
+    </section>
+
+    <section class="panel setup-card" aria-labelledby="scenario" data-robot>
+      <h2 id="scenario">Scenario</h2>
+      <div class="fields">
+        <label>Duration · s<input id="duration" type="number" min="0.01" max="30" step="any"></label>
+        <label>Mass · kg<input id="mass_kg" type="number" step="any"></label>
+        <label>Wheel radius · m<input id="wheel_radius_m" type="number" step="any"></label>
+        <label>Track width · m<input id="track_width_m" type="number" step="any"></label>
+      </div>
+      <details>
+        <summary>Initial pose, inertia, loads and encoder faults</summary>
+        <div class="fields">
+          <label>Initial x · m<input id="x_m" type="number" min="-10" max="10" step="any"></label>
+          <label>Initial y · m<input id="y_m" type="number" min="-10" max="10" step="any"></label>
+          <label>Initial heading · rad<input id="heading_rad" type="number" min="-10" max="10" step="any"></label>
+          <label>Yaw inertia · kg·m²<input id="yaw_inertia_kg_m2" type="number" step="any"></label>
+          <label>Wheel inertia · kg·m²<input id="wheel_inertia_kg_m2" type="number" step="any"></label>
+        </div>
+        <label class="load-editor">Load events · JSON<textarea id="loads" rows="6" spellcheck="false"></textarea></label>
+        <p class="hint">Each event specifies start_s, end_s, left_Nms and right_Nms. Use [] for no external load.</p>
+        <label class="load-editor">Scheduled encoder faults · JSON<textarea id="encoder-faults" rows="4" spellcheck="false"></textarea></label>
+        <p class="hint">Each fault specifies channel, level, start_s and end_s. Example channel right.a with level 0 means stuck low.</p>
+        <label class="load-editor"><input type="checkbox" id="encoder-fault-evidence"> Enable encoder evidence and live fault controls</label>
+      </details>
+    </section>
+  </div>
+
+  <section class="panel setup-card wiring" aria-labelledby="wiring">
+    <div class="wiring-head">
+      <div>
+        <h2 id="wiring">Pin discovery</h2>
+        <p data-robot class="hint">Only the qualified routes are selectable. Wiring stays in place if firmware remuxes pins.</p>
+      </div>
+      <div class="actions">
+        <label>Virtual time · s<input id="discovery-time" type="number" min="0.01" max="3" step="any" value="0.5"></label>
+        <button id="discover">Discover pins</button>
+        <button data-robot id="suggest" disabled>Use confirmed preset routes</button>
+      </div>
+    </div>
+    <div class="snapshot" id="snapshot" hidden>
+      <label>Snapshot<select id="snapshot-select"></select></label>
+      <span id="discovery-summary"></span>
+    </div>
+    <div class="scroll-table" data-robot>
+      <table>
+        <thead><tr><th>Component endpoint</th><th>Connected pin</th><th>MCU configuration</th><th>Observed activity</th></tr></thead>
+        <tbody id="wiring-rows"></tbody>
+      </table>
+    </div>
+    <div id="signal-table" class="scroll-table" hidden>
+      <table>
+        <thead><tr><th>Pin</th><th>Role</th><th>Configuration</th><th>Observed activity</th></tr></thead>
+        <tbody id="signal-rows"></tbody>
+      </table>
+    </div>
+    <p id="passive-hint" class="hint" hidden>Passive discovery observes the firmware pin configuration and signals.</p>
+    <p data-robot class="hint">Discovery runs for bounded virtual time with the selected connections attached. A snapshot may precede firmware initialization. Rerun discovery after wiring or adjusting the window.</p>
+  </section>
+
+  <section class="panel setup-card run-bar" aria-labelledby="run-title">
+    <div>
+      <h2 id="run-title">Execution</h2>
+      <p id="status" role="status">Select a target and firmware to begin.</p>
+      <p id="warnings" hidden></p>
+      <p id="error" role="alert" hidden></p>
+    </div>
+    <div class="actions run-actions">
+      <a id="log" class="button" hidden>Renode log</a>
+      <a data-robot id="replay" class="button" hidden>Open recorded replay</a>
+      <button data-robot id="run">Run for replay</button>
+      <button data-robot id="live" class="primary">Prepare live simulation</button>
+    </div>
+  </section>
+
+  <details class="notes">
+    <summary>Supported profiles and model limits</summary>
+    <p>STM32F407VGT6 only. The HSI16 robot uses TIM2 PWM, GPIO direction and TIM3/TIM4 quadrature. The PLL168 profile is for passive signal discovery of the qualified TIM2 capture and TIM3 PWM routes.</p>
+    <p>The robot uses observed pin signals and model state. Firmware odometry and setpoints require the optional example-v1 observer and its documented memory layout.</p>
+    <p>One execution slot per server. Robot runs support up to 30 virtual seconds. Other peripherals and routes may be incomplete. TIM9 operation, ITM/SWO output and SRAM bit-band remain unqualified.</p>
+    <p>Ideal rolling with no slip or collisions. Averaged drivers. Illustrative physical parameters. No validation against physical hardware.</p>
+  </details>
+</main>
+</body>
+</html>

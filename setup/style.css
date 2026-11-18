@@ -1,0 +1,41 @@
+main { max-width: 1400px; }
+.top { margin-bottom: 22px; }
+.setup-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.setup-card { padding: 15px; }
+.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin: 12px 0; }
+.setup-card label { display: grid; gap: 4px; min-width: 0; font-size: 12px; color: var(--muted); }
+.setup-card label.button { display: inline-block; color: var(--ink); }
+.setup-card label.button:has(+ input:focus-visible) { outline: 2px solid var(--cyan); }
+input[type=number], textarea {
+  width: 100%; min-width: 0; border: 1px solid #344963; border-radius: 7px; padding: 8px;
+  color: var(--ink); background: #19273b; font: 13px ui-monospace, monospace;
+}
+select { width: 100%; min-width: 0; }
+textarea { resize: vertical; }
+.actions, .wiring-head, .snapshot, .run-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wiring-head, .run-bar { justify-content: space-between; }
+.run-actions { margin-left: auto; }
+.wiring, .run-bar { margin-top: 12px; }
+.wiring-head .actions label { max-width: 90px; }
+.hint, #status, #firmware-name, .snapshot { color: var(--muted); font-size: 12px; }
+.hint, #status { line-height: 1.5; margin: 7px 0 0; }
+#firmware-name { overflow-wrap: anywhere; }
+.setup-card details { margin-top: 10px; color: var(--muted); font-size: 12px; }
+.setup-card summary { cursor: pointer; }
+.snapshot { margin-top: 10px; gap: 12px; }
+.snapshot[hidden], a[hidden] { display: none; }
+.scroll-table { overflow-x: auto; margin-top: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 700px; table-layout: fixed; }
+th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); background: #18273a; height: 30px; }
+th:nth-child(1) { width: 22%; }
+th:nth-child(2) { width: 16%; }
+th:nth-child(3) { width: 40%; }
+td select { max-width: 170px; padding-block: 5px; }
+td small { display: block; margin-top: 2px; color: var(--muted); font: 11px ui-monospace, monospace; }
+.confirmed { color: var(--cyan); }
+.unconfirmed { color: var(--amber); }
+a.button { display: inline-block; text-decoration: none; }
+@media (max-width: 760px) { .setup-grid { grid-template-columns: 1fr; } }
+
+[data-robot][hidden], #signal-table[hidden] { display: none; }

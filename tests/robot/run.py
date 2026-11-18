@@ -52,7 +52,7 @@ def scenario(name):
     portA: gpioPortA
     portB: gpioPortB
     stepNanoseconds: {step}
-    rightResistance: {'0.0' if name=='noload' else '0.0015'}
+    exampleObserver: true
 gpioPortA:
     0 -> robotBody@0
     1 -> robotBody@1
@@ -61,6 +61,11 @@ gpioPortA:
 '''
     path=OUT/(name+'.repl');path.write_text(repl)
     s=prefix(sources)+[f'machine LoadPlatformDescription @{path}',f'sysbus LoadELF @{elf}']
+    if name!='noload':
+        scenario_config=json.loads((ROOT/'setup/default.json').read_text())['scenario']
+        for event in scenario_config['loads']:
+            s+=['sysbus.gpioPortA.robotBody AddLoad '+ ' '.join(f'"{event[key]}"' for key in
+                ('start_s','end_s','left_Nms','right_Nms'))]
     if name=='pause':
         s+=['emulation RunFor "3.6"','echo "STATE_A"','sysbus.gpioPortA.robotBody Steps','sysbus.gpioPortA.robotBody X',
             'echo "STATE_B"','sysbus.gpioPortA.robotBody Steps','sysbus.gpioPortA.robotBody X','emulation RunFor "6.8"']

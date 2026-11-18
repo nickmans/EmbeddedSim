@@ -5,6 +5,25 @@ compiled STM32 firmware controls two torque-driven wheels through real PWM,
 direction GPIO and independent encoder timers. Physical values are illustrative;
 the model has not been validated against physical hardware.
 
+Start with the [external tester guide](docs/external-tester.md) for a clean Linux
+checkout and first run. See the [performance report](docs/performance.md)
+for measured execution, browser traffic, and command latency.
+
+Use the [local robot setup](setup/README.md) to supply an STM32 ELF, discover
+qualified pins, connect the differential-drive preset, and run a scenario for
+replay. Start it with `bash setup/start.sh`. The same interface supports
+[live simulation](docs/live-simulation.md) with pause, resume, and a recorded
+right-wheel load change.
+
+See [encoder fault scenarios and assertions](docs/encoder-faults.md) for a
+reproducible feedback-loss demonstration.
+
+The [STM32CubeF4 HAL compatibility report](docs/cubef4-hal-compatibility.md)
+covers a handwritten external-ELF fixture built with ST startup, CMSIS and
+HAL, and records the remaining CubeMX/CubeIDE qualification. The
+[third-party PWM qualification](docs/third-party-pwm-qualification.md) tests
+the original committed ELF from a public STM32F407 project on a signal bench.
+
 Build firmware, qualify added pins/timers, run the robot, export trajectory
 and telemetry, and run all existing motor/peripheral/GDB regressions:
 

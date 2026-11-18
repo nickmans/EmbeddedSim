@@ -4,8 +4,6 @@ const cyan = '#66e4de';
 const amber = '#ffc478';
 const muted = '#a5b7ce';
 const font = '11px ui-monospace, monospace';
-const radius = 0.05;
-const halfTrack = 0.15;
 
 function canvasContext(canvas) {
   const w = canvas.clientWidth;
@@ -38,7 +36,9 @@ function gridStep(value) {
   return [1, 2, 5, 10].find(factor => factor * base >= value) * base;
 }
 
-export function createScene(canvas, data) {
+export function createScene(canvas, data, { radius, track }) {
+  const halfTrack = track / 2;
+  const padding = Math.max(track, radius * 2) + 0.05;
   const truthPath = path(data.x_m, data.y_m);
   const odomPath = odometry.every(key => Object.hasOwn(data, key))
     ? path(data.odom_x_m, data.odom_y_m) : null;
@@ -64,8 +64,8 @@ export function createScene(canvas, data) {
     const { ctx, w, h } = canvasContext(canvas);
     if (w < 100 || h < 100) return;
     const [xmin, ymin, xmax, ymax] = showOdom ? combinedBounds : truthBounds;
-    const scale = follow ? Math.min(w, h) / 0.65 :
-      Math.min((w - 60) / (xmax - xmin + 0.35), (h - 82) / (ymax - ymin + 0.35));
+    const scale = follow ? Math.min(w, h) / Math.max(0.65, padding * 1.5) :
+      Math.min((w - 60) / (xmax - xmin + padding), (h - 82) / (ymax - ymin + padding));
     const centerX = follow ? pose.x : xmin + (xmax - xmin) / 2;
     const centerY = follow ? pose.y : ymin + (ymax - ymin) / 2;
     const screenX = x => w / 2 + (x - centerX) * scale;
@@ -135,9 +135,9 @@ export function createScene(canvas, data) {
     for (const y of [-halfTrack, halfTrack]) segment(-radius, y, radius, y);
     ctx.strokeStyle = '#e7fbff';
     ctx.lineWidth = 2.5 / scale;
-    segment(0, 0, 0.105, 0);
-    segment(0.105, 0, 0.075, 0.024);
-    segment(0.105, 0, 0.075, -0.024);
+    segment(0, 0, radius * 2.1, 0);
+    segment(radius * 2.1, 0, radius * 1.5, radius * 0.48);
+    segment(radius * 2.1, 0, radius * 1.5, -radius * 0.48);
     ctx.fillStyle = '#e7fbff';
     ctx.beginPath();
     ctx.arc(0, 0, 3 / scale, 0, Math.PI * 2);

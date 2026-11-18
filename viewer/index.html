@@ -12,10 +12,10 @@
   <header class="top">
     <div>
       <p class="brand"><span class="mark" aria-hidden="true">⌁</span> EmbeddedSim</p>
-      <h1>Recorded simulation replay</h1>
-      <p class="subtitle">STM32 differential-drive robot <span>·</span> Recorded telemetry</p>
+      <h1 id="viewer-title">Recorded simulation replay</h1>
+      <p class="subtitle" id="viewer-subtitle">STM32 differential-drive robot <span>·</span> Recorded telemetry</p>
     </div>
-    <div class="files">
+    <div class="files" id="replay-files">
       <button id="demo" type="button">Load demo</button>
       <label class="button primary" for="file">Open CSV</label>
       <input type="file" id="file" accept=".csv,text/csv" class="visually-hidden">
@@ -23,6 +23,52 @@
   </header>
   <div class="recording"><span id="source">Loading demo…</span><span id="metadata"></span></div>
   <p id="error" role="alert" hidden></p>
+  <section class="panel live-controls" id="live-controls" hidden aria-label="Live simulation controls">
+    <div class="live-toolbar">
+      <div class="live-actions">
+        <a class="button" href="/setup/">Setup</a>
+        <button class="primary" id="live-toggle" disabled>Start</button>
+        <button id="live-stop" disabled>Stop</button>
+        <button id="live-reset" disabled>Reset</button>
+      </div>
+      <dl class="live-metrics">
+        <div><dt>Virtual time</dt><dd id="live-time">0.000 s</dd></div>
+        <div><dt>Wall elapsed (includes pauses)</dt><dd id="live-wall">0.0 s</dd></div>
+        <div><dt>Advancing speed</dt><dd id="live-speed">—</dd></div>
+      </dl>
+    </div>
+    <div class="live-toolbar live-load-row">
+      <form id="live-load-form" class="live-load-form">
+        <label for="live-load">Right-wheel load <span>N·m/(rad/s)</span></label>
+        <input id="live-load" type="number" min="0" max="0.02" step="any" value="0.006" required disabled>
+        <button id="live-apply" disabled>Queue load</button>
+      </form>
+      <span id="live-event" class="live-muted" role="status">External viscous resistance · range 0–0.02</span>
+    </div>
+    <div class="live-toolbar live-load-row" id="live-faults" hidden>
+      <form id="live-fault-form" class="live-load-form">
+        <label for="live-fault-channel">Encoder channel</label>
+        <select id="live-fault-channel">
+          <option value="left.a">Left A</option><option value="left.b">Left B</option>
+          <option value="right.a">Right A</option><option value="right.b">Right B</option>
+        </select>
+        <label for="live-fault-level">Level</label>
+        <select id="live-fault-level"><option value="0">Stuck low</option><option value="1">Stuck high</option></select>
+        <button id="live-fault-apply">Queue fault</button>
+        <button type="button" id="live-fault-clear">Clear override</button>
+      </form>
+      <span id="live-fault-event" class="live-muted" role="status"></span>
+    </div>
+    <p id="live-warnings" class="live-muted" hidden></p>
+    <a class="button" id="live-failure-log" hidden>Renode log</a>
+    <div id="live-files" class="live-actions" hidden>
+      <a class="button primary" id="live-replay">Open recorded replay</a>
+      <a class="button" id="live-save" download="recording.csv">Save CSV</a>
+      <a class="button" id="live-events" download="events.json">Save events</a>
+      <a class="button" id="live-log">Renode log</a>
+      <a class="button" id="live-config" download="config.json">Save config</a>
+    </div>
+  </section>
   <section class="dashboard" aria-label="Replay inspection">
     <article class="panel scene-panel">
       <div class="panel-head">
@@ -36,8 +82,8 @@
         <canvas id="scene" role="img" aria-label="Metric trajectory map"></canvas>
         <div class="map-legend"><span><i class="swatch truth"></i>Model ground truth</span><label><input id="odom" type="checkbox" checked disabled><i class="swatch odom"></i>Firmware odometry</label></div>
       </div>
-      <div class="scene-note">Schematic axle <span>·</span> Track 0.30 m <span>·</span> Wheel radius 0.05 m</div>
-      <div class="transport">
+      <div class="scene-note" id="scene-note">Schematic axle <span>·</span> Track 0.30 m <span>·</span> Wheel radius 0.05 m</div>
+      <div class="transport" id="replay-transport">
         <div class="transport-row">
           <button type="button" class="primary" id="play" disabled>Play</button>
           <button type="button" id="restart" disabled>Restart</button>
@@ -59,9 +105,9 @@
     </article>
   </section>
   <details class="notes" open>
-    <summary>Model limitations and replay conventions</summary>
+    <summary id="conventions-title">Model limitations and replay conventions</summary>
     <p>Ideal rolling with no slip or collisions. Averaged motor drivers. Illustrative physical parameters. Not validated against physical hardware.</p>
-    <p>The schematic interpolates model position linearly and heading along the shortest angular arc. Telemetry shows the latest recorded sample at or before the cursor. Firmware odometry comes from encoder-derived firmware values.</p>
+    <p id="replay-conventions">The schematic interpolates model position linearly and heading along the shortest angular arc. Telemetry shows the latest recorded sample at or before the cursor. Firmware odometry comes from encoder-derived firmware values.</p>
   </details>
 </main>
 </body>

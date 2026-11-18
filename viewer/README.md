@@ -1,5 +1,8 @@
 # Recorded simulation replay
 
+For a running machine, open the [live viewer through setup](../docs/live-simulation.md).
+Finalized live recordings open here with the usual replay controls.
+
 From the repository root, generate the firmware-driven demo and serve the viewer
 with one command.
 
@@ -18,7 +21,8 @@ Use **Open CSV** to select another robot recording. The browser reads the
 file locally. **Load demo** reloads the generated `tests/robot/out/main.csv`.
 To share a recording, send the CSV to someone who has the viewer, or serve
 the static viewer files and demo CSV together with the same relative paths.
-There are no runtime packages or remote assets.
+There are no runtime packages or remote assets. The [local robot setup](../setup/README.md)
+opens this viewer directly on a completed scenario recording.
 
 ## Robot CSV v1
 
@@ -41,15 +45,21 @@ their columns are present. Additional numeric columns are accepted.
 | `duty_l`, `duty_r` | fraction, shown as % | Observed PWM pin high time over the trailing 1 ms |
 | `dir_l`, `dir_r` | −1 low, +1 high | Observed direction GPIO, signed bridge input |
 | `il_A`, `ir_A` | A | Model electrical state |
-| `right_drag_Nms` | N·m/(rad/s) | Applied external right-wheel viscous coefficient |
+| `left_drag_Nms`, `right_drag_Nms` | N·m/(rad/s) | Applied external wheel viscous coefficients, where recorded |
+| `wheel_radius_m`, `track_width_m` | m | Optional constant geometry for the recorded schematic |
+| `tim3_counter`, `tim4_counter` | counts | Observed emulator peripheral registers, when recorded |
 | `resistance_l_Nm`, `resistance_r_Nm` | N·m | Signed resistance term subtracted by the model |
+
+[Encoder evidence](../docs/encoder-faults.md) adds optional physical and
+GPIO edge counts and sampled masks to replay readouts.
 
 With all three odometry columns, the viewer draws the firmware path and derives
 Euclidean position error and the wrapped signed heading difference
 (firmware minus model). The odometry path is dashed and drawn at its recorded
 coordinates. World +x points right, +y up, and positive yaw counterclockwise.
-The schematic uses the 0.30 m center-to-center track and 0.05 m wheel radius in
-the [robot contract](../docs/robot-contract.md). The axle, wheel strokes, and
+The schematic uses recorded geometry when present, and the default 0.30 m
+track and 0.05 m wheel radius from the [robot contract](../docs/robot-contract.md)
+for existing recordings. The axle, wheel strokes, and
 forward arrow depict orientation without assuming chassis dimensions.
 
 The cursor uses recorded simulation timestamps. At intermediate times the

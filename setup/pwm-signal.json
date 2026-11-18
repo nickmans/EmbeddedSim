@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "target": {
+    "part": "stm32f407vgt6",
+    "profile": "pwm-signal-pll168-v1"
+  }
+}

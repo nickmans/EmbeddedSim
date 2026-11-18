@@ -1,0 +1,448 @@
+{
+  "elf_sha256": "25c2ab9e6d21a4743d311e00e1adae5e45247c3a9a14d82579e27b95bb7f3353",
+  "hal_fixture_before": {
+    "hal_delay_ns": [
+      10996510,
+      115498140,
+      7217290,
+      10998810
+    ],
+    "counter_only_wrap_ns": 999900,
+    "irq_intervals_ns": [
+      [
+        1000000,
+        1000000,
+        999760,
+        999930,
+        999940,
+        999940,
+        999940,
+        999940,
+        999930
+      ],
+      [
+        10499940,
+        10499930,
+        10499940,
+        10499940,
+        10499940,
+        10499940,
+        10499930,
+        10499940,
+        10499940
+      ],
+      [
+        656190,
+        656190,
+        656180,
+        656190,
+        656190,
+        656190,
+        656190,
+        656180,
+        656190
+      ],
+      [
+        999940,
+        999930,
+        999940,
+        999940,
+        999940,
+        999940,
+        999930,
+        999940,
+        999940
+      ]
+    ],
+    "hal_tick_deltas": [
+      11,
+      11,
+      11,
+      11
+    ],
+    "irq_count_deltas": [
+      11,
+      11,
+      11,
+      11
+    ],
+    "counter_only_countflag_observed": true
+  },
+  "hal_fixture_after": {
+    "hal_delay_ns": [
+      10996510,
+      10998770,
+      10993070,
+      10998850
+    ],
+    "counter_only_wrap_ns": 1000000,
+    "irq_intervals_ns": [
+      [
+        1000000,
+        1000000,
+        999760,
+        999930,
+        999940,
+        999940,
+        999940,
+        999940,
+        999930
+      ],
+      [
+        999990,
+        1000000,
+        999990,
+        1000000,
+        999990,
+        1000000,
+        999990,
+        1000000,
+        999990
+      ],
+      [
+        999910,
+        999900,
+        999910,
+        999900,
+        999910,
+        999900,
+        999910,
+        999900,
+        999910
+      ],
+      [
+        999990,
+        1000000,
+        1000000,
+        999760,
+        999940,
+        999940,
+        999940,
+        999940,
+        999930
+      ]
+    ],
+    "hal_tick_deltas": [
+      11,
+      11,
+      11,
+      11
+    ],
+    "irq_count_deltas": [
+      11,
+      11,
+      11,
+      11
+    ],
+    "counter_only_countflag_observed": true
+  },
+  "original_hsi_snapshots": [
+    {
+      "virtual_ns": 16000,
+      "SYST_RVR": 15999,
+      "uwTick": 0
+    },
+    {
+      "virtual_ns": 17000,
+      "SYST_RVR": 15999,
+      "uwTick": 0
+    },
+    {
+      "virtual_ns": 18000,
+      "SYST_RVR": 15999,
+      "uwTick": 0
+    },
+    {
+      "virtual_ns": 19000,
+      "SYST_RVR": 15999,
+      "uwTick": 0
+    },
+    {
+      "virtual_ns": 20000,
+      "SYST_RVR": 15999,
+      "uwTick": 0
+    },
+    {
+      "virtual_ns": 21000,
+      "SYST_RVR": 15999,
+      "uwTick": 0
+    },
+    {
+      "virtual_ns": 22000,
+      "SYST_RVR": 15999,
+      "uwTick": 0
+    }
+  ],
+  "original_systick_before": {
+    "reload": 167999,
+    "hal_tick_at_20_ms": 1,
+    "hal_tick_at_end": 6,
+    "end_virtual_ns": 68984000
+  },
+  "original_systick_after": {
+    "reload": 167999,
+    "hal_tick_at_20_ms": 19,
+    "hal_tick_at_end": 68,
+    "end_virtual_ns": 68984000
+  },
+  "original_pre_input_reverse": {
+    "PA6": {
+      "period_ns": 407715,
+      "duty": 0.9998840224246671
+    },
+    "PA7": {
+      "period_ns": 407715,
+      "duty": 0.9998840224246671
+    },
+    "PB0": {
+      "period_ns": 407715,
+      "duty": 0.9998840224246671
+    },
+    "PB1": {
+      "period_ns": 407715,
+      "duty": 0.9998840224246671
+    }
+  },
+  "original_configured_pwm_period_ns": 407714.28571428574,
+  "original_signal_phases_unchanged": true,
+  "normal_discovery": {
+    "time_s": 0.02,
+    "clock_profile_matches": true,
+    "clocks": {
+      "source": "PLL",
+      "sysclk_hz": 168000000,
+      "hclk_hz": 168000000,
+      "pclk1_hz": 42000000,
+      "pclk2_hz": 84000000,
+      "apb1_timer_hz": 84000000
+    },
+    "pins": {
+      "PA0": {
+        "mode": "alternate function",
+        "af": 1,
+        "peripheral": "TIM2_CH1",
+        "role": "capture input",
+        "qualified": true,
+        "timer_running": true,
+        "timer": {
+          "psc": 83,
+          "arr": 2040,
+          "counter_hz": 1000000.0,
+          "edge": "rising",
+          "capture_interrupt": true
+        },
+        "expected_period_s": null,
+        "observed": null
+      },
+      "PA2": {
+        "mode": "alternate function",
+        "af": 1,
+        "peripheral": "TIM2_CH3",
+        "role": "capture input",
+        "qualified": true,
+        "timer_running": true,
+        "timer": {
+          "psc": 83,
+          "arr": 2040,
+          "counter_hz": 1000000.0,
+          "edge": "rising",
+          "capture_interrupt": true
+        },
+        "expected_period_s": null,
+        "observed": null
+      },
+      "PA6": {
+        "mode": "alternate function",
+        "af": 2,
+        "peripheral": "TIM3_CH1",
+        "role": "PWM output",
+        "qualified": true,
+        "timer_running": true,
+        "timer": {
+          "psc": 3,
+          "arr": 8561,
+          "counter_hz": 21000000.0
+        },
+        "expected_period_s": 0.0004077142857142857,
+        "observed": {
+          "level": 1,
+          "period_s": 0.000407715,
+          "activity": "periodic",
+          "duty": 0.9998822707038004
+        }
+      },
+      "PA7": {
+        "mode": "alternate function",
+        "af": 2,
+        "peripheral": "TIM3_CH2",
+        "role": "PWM output",
+        "qualified": true,
+        "timer_running": true,
+        "timer": {
+          "psc": 3,
+          "arr": 8561,
+          "counter_hz": 21000000.0
+        },
+        "expected_period_s": 0.0004077142857142857,
+        "observed": {
+          "level": 1,
+          "period_s": 0.000407715,
+          "activity": "periodic",
+          "duty": 0.9998822707038004
+        }
+      },
+      "PB0": {
+        "mode": "alternate function",
+        "af": 2,
+        "peripheral": "TIM3_CH3",
+        "role": "PWM output",
+        "qualified": true,
+        "timer_running": true,
+        "timer": {
+          "psc": 3,
+          "arr": 8561,
+          "counter_hz": 21000000.0
+        },
+        "expected_period_s": 0.0004077142857142857,
+        "observed": {
+          "level": 1,
+          "period_s": 0.000407715,
+          "activity": "periodic",
+          "duty": 0.9998822707038004
+        }
+      },
+      "PB1": {
+        "mode": "alternate function",
+        "af": 2,
+        "peripheral": "TIM3_CH4",
+        "role": "PWM output",
+        "qualified": true,
+        "timer_running": true,
+        "timer": {
+          "psc": 3,
+          "arr": 8561,
+          "counter_hz": 21000000.0
+        },
+        "expected_period_s": 0.0004077142857142857,
+        "observed": {
+          "level": 1,
+          "period_s": 0.000407715,
+          "activity": "periodic",
+          "duty": 0.9998822707038004
+        }
+      },
+      "PC0": {
+        "mode": "output",
+        "af": null,
+        "peripheral": null,
+        "role": "direction output",
+        "qualified": true,
+        "timer_running": null,
+        "timer": null,
+        "expected_period_s": null,
+        "observed": {
+          "level": 0,
+          "period_s": null,
+          "activity": "constant in observation window"
+        }
+      },
+      "PC1": {
+        "mode": "output",
+        "af": null,
+        "peripheral": null,
+        "role": "direction output",
+        "qualified": true,
+        "timer_running": null,
+        "timer": null,
+        "expected_period_s": null,
+        "observed": {
+          "level": 0,
+          "period_s": null,
+          "activity": "constant in observation window"
+        }
+      },
+      "PC2": {
+        "mode": "output",
+        "af": null,
+        "peripheral": null,
+        "role": "direction output",
+        "qualified": true,
+        "timer_running": null,
+        "timer": null,
+        "expected_period_s": null,
+        "observed": {
+          "level": 0,
+          "period_s": null,
+          "activity": "constant in observation window"
+        }
+      },
+      "PC3": {
+        "mode": "output",
+        "af": null,
+        "peripheral": null,
+        "role": "direction output",
+        "qualified": true,
+        "timer_running": null,
+        "timer": null,
+        "expected_period_s": null,
+        "observed": {
+          "level": 0,
+          "period_s": null,
+          "activity": "constant in observation window"
+        }
+      },
+      "PB3": {
+        "mode": "output",
+        "af": null,
+        "peripheral": null,
+        "role": "brake output",
+        "qualified": true,
+        "timer_running": null,
+        "timer": null,
+        "expected_period_s": null,
+        "observed": {
+          "level": 1,
+          "period_s": null,
+          "activity": "constant in observation window"
+        }
+      },
+      "PB5": {
+        "mode": "output",
+        "af": null,
+        "peripheral": null,
+        "role": "brake output",
+        "qualified": true,
+        "timer_running": null,
+        "timer": null,
+        "expected_period_s": null,
+        "observed": {
+          "level": 0,
+          "period_s": null,
+          "activity": "constant in observation window"
+        }
+      },
+      "PE5": {
+        "mode": "alternate function",
+        "af": 3,
+        "peripheral": "TIM9_CH1",
+        "role": "unqualified PWM output",
+        "qualified": false,
+        "timer_running": false,
+        "timer": null,
+        "expected_period_s": null,
+        "observed": null
+      },
+      "PE6": {
+        "mode": "alternate function",
+        "af": 3,
+        "peripheral": "TIM9_CH2",
+        "role": "unqualified PWM output",
+        "qualified": false,
+        "timer_running": false,
+        "timer": null,
+        "expected_period_s": null,
+        "observed": null
+      }
+    }
+  }
+}

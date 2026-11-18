@@ -1,0 +1,157 @@
+{
+  "sha256": "25c2ab9e6d21a4743d311e00e1adae5e45247c3a9a14d82579e27b95bb7f3353",
+  "observer": "none",
+  "without_peripheral_bitband": {
+    "pc": "0x08001c4a",
+    "symbol": "Error_Handler",
+    "clock_hz": 16000000,
+    "pll_ready": false
+  },
+  "clock_hz": 168000000,
+  "pin_configuration": {
+    "PA0": "AF1 TIM2_CH1 direct input capture",
+    "PA2": "AF1 TIM2_CH3 direct input capture",
+    "PA6": "AF2 TIM3_CH1 PWM1",
+    "PA7": "AF2 TIM3_CH2 PWM1",
+    "PB0": "AF2 TIM3_CH3 PWM1",
+    "PB1": "AF2 TIM3_CH4 PWM1",
+    "PC0": "GPIO push-pull direction",
+    "PC1": "GPIO push-pull direction",
+    "PC2": "GPIO push-pull direction",
+    "PC3": "GPIO push-pull direction",
+    "PB3": "GPIO push-pull brake leg",
+    "PB5": "GPIO push-pull brake leg",
+    "PE5": "AF3 TIM9_CH1 configured, stopped",
+    "PE6": "AF3 TIM9_CH2 configured, stopped"
+  },
+  "systick_after_pll": {
+    "reload": 167999,
+    "hal_tick_at_20_ms": 1,
+    "hal_tick_at_end": 6,
+    "end_virtual_ns": 68984000
+  },
+  "phases": {
+    "split": {
+      "input_high_us": {
+        "PA0": 700,
+        "PA2": 1400
+      },
+      "firmware_capture_us": {
+        "PA0": 699,
+        "PA2": 1399
+      },
+      "firmware_duty_percent": {
+        "PA0": 34.264705657958984,
+        "PA2": 68.57843017578125
+      },
+      "irq_assertions": 24,
+      "output_pwm": {
+        "PA6": {
+          "ccr": 5267,
+          "period_ns": 407715,
+          "duty": 0.6151611772950245
+        },
+        "PA7": {
+          "ccr": 5267,
+          "period_ns": 407715,
+          "duty": 0.6151611772950245
+        },
+        "PB0": {
+          "ccr": 4969,
+          "period_ns": 407715,
+          "duty": 0.5803573931324456
+        },
+        "PB1": {
+          "ccr": 4969,
+          "period_ns": 407715,
+          "duty": 0.5803573931324456
+        }
+      },
+      "PC0_through_PC3_mask": 3,
+      "PB3_PB5_mask": 8
+    },
+    "neutral": {
+      "input_high_us": {
+        "PA0": 1020,
+        "PA2": 1020
+      },
+      "firmware_capture_us": {
+        "PA0": 1019,
+        "PA2": 1019
+      },
+      "firmware_duty_percent": {
+        "PA0": 49.95098114013672,
+        "PA2": 49.95098114013672
+      },
+      "irq_assertions": 16,
+      "output_pwm": {
+        "PA6": {
+          "ccr": 0,
+          "period_ns": null,
+          "duty": 0
+        },
+        "PA7": {
+          "ccr": 0,
+          "period_ns": null,
+          "duty": 0
+        },
+        "PB0": {
+          "ccr": 0,
+          "period_ns": null,
+          "duty": 0
+        },
+        "PB1": {
+          "ccr": 0,
+          "period_ns": null,
+          "duty": 0
+        }
+      },
+      "PC0_through_PC3_mask": 3,
+      "PB3_PB5_mask": 32
+    },
+    "swapped": {
+      "input_high_us": {
+        "PA0": 1400,
+        "PA2": 700
+      },
+      "firmware_capture_us": {
+        "PA0": 1399,
+        "PA2": 699
+      },
+      "firmware_duty_percent": {
+        "PA0": 68.57843017578125,
+        "PA2": 34.264705657958984
+      },
+      "irq_assertions": 24,
+      "output_pwm": {
+        "PA6": {
+          "ccr": 4969,
+          "period_ns": 407715,
+          "duty": 0.5803573931324456
+        },
+        "PA7": {
+          "ccr": 4969,
+          "period_ns": 407715,
+          "duty": 0.5803573931324456
+        },
+        "PB0": {
+          "ccr": 5267,
+          "period_ns": 407715,
+          "duty": 0.6151611772950245
+        },
+        "PB1": {
+          "ccr": 5267,
+          "period_ns": 407715,
+          "duty": 0.6151611772950245
+        }
+      },
+      "PC0_through_PC3_mask": 12,
+      "PB3_PB5_mask": 8
+    }
+  },
+  "upstream_commit": "e8d74d4ff7f4e62f01b3f9edc14fc28b971e9c19",
+  "git_blob": "d2a71691a737208412e71c2f605f83d4241c6101",
+  "renode": "1.17.0+20260907gitf1dd1b4af",
+  "robot_catalog_confirmed_pins_after_500_ms": 0,
+  "input_pin_transitions_observed": 96
+}

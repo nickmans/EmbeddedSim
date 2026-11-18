@@ -93,3 +93,30 @@ input[type=range], input[type=checkbox] { accent-color: var(--cyan); }
   .clock { margin-left: 0; }
 }
 .map-legend label[hidden] { display: none; }
+
+#live-controls[hidden], #live-faults[hidden], #live-files[hidden], #replay-files[hidden], #replay-transport[hidden] { display: none; }
+.live-controls { margin-bottom: 12px; padding: 13px 15px; }
+.live-toolbar, .live-actions, .live-metrics, .live-load-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.live-toolbar { justify-content: space-between; gap: 12px; }
+.live-actions a { display: inline-block; text-decoration: none; }
+.live-metrics { margin: 0; gap: 18px; }
+.live-metrics dt, .live-muted, .live-load-form label span { color: var(--muted); font-size: 12px; }
+.live-metrics dd { margin: 0; font: 13px ui-monospace, monospace; }
+.live-load-row { border-top: 1px solid var(--border); margin-top: 10px; padding-top: 10px; }
+.live-load-form label { font-size: 13px; }
+.live-load-form input {
+  width: 90px;
+  background: #19273b;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 8px;
+  color: var(--ink);
+  font: 13px ui-monospace, monospace;
+}
+#live-files { margin-top: 10px; }
+.live-mode .plot canvas { cursor: default; }

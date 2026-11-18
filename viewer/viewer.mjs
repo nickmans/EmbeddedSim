@@ -1,4 +1,5 @@
 import { headingErrorKey, parseTrace, poseAt, positionErrorKey, sampleAt } from './trace.mjs';
+import { openLive } from './live.mjs';
 import { createScene, drawPlot, moveCursor, plotFraction } from './drawing.mjs';
 
 const byId = id => document.getElementById(id);
@@ -8,6 +9,9 @@ const play = byId('play');
 const follow = byId('follow');
 const odom = byId('odom');
 const file = byId('file');
+const job = new URLSearchParams(location.search).get('job');
+const requestedLive = new URLSearchParams(location.search).get('live');
+const liveId = /^[0-9a-f]{32}$/.test(requestedLive || '') ? requestedLive : null;
 const left = '#66e4de';
 const right = '#ffc478';
 
@@ -40,8 +44,13 @@ const rows = [
   ['PWM duty · %', 'Measured pins · trailing 1 ms', duty],
   ['Direction GPIO', 'Measured pins', direction],
   ['Motor current · A', 'Model electrical state', current],
-  ['Added drag · N·m/(rad/s)', 'External model input', [['right_drag_Nms', 'R']]],
+  ['Added drag · N·m/(rad/s)', 'External model input', [['left_drag_Nms', 'L'], ['right_drag_Nms', 'R']]],
   ['Resistance torque · N·m', 'Model load · signed', pair(['resistance_l_Nm', 'resistance_r_Nm'])],
+  ...['left_a', 'left_b', 'right_a', 'right_b'].map(channel => [
+    `Encoder ${channel.replace('_', ' ').toUpperCase()} · edges`, 'Physical encoder and MCU GPIO · cumulative',
+    [[`enc_${channel}_physical_edges`, 'Physical'], [`enc_${channel}_delivered_edges`, 'GPIO'],
+      [`enc_${channel}_forced_level`, 'Mask']],
+  ]),
   ['Estimation error · mm, mrad', 'Derived from matched samples', [...positionError, ...headingError].map((item, i) => ({ ...item, name: i ? 'ψ' : 'pos' }))],
 ];
 
@@ -111,7 +120,7 @@ function buildPanels() {
       setTime(trace.start + plotFraction(event.clientX - rect.left, rect.width) * (trace.end - trace.start));
     }
     canvas.addEventListener('pointerdown', event => {
-      if (event.button !== 0) return;
+      if (liveId || event.button !== 0) return;
       pause();
       canvas.setPointerCapture(event.pointerId);
       seek(event);
@@ -136,8 +145,10 @@ function updatePlots() {
 
 function format(key, value) {
   if (typeof key !== 'string') return value.toFixed(3);
+  if (key.endsWith('_forced_level')) return value === -1 ? 'pass' : value === 0 ? 'low' : 'high';
+  if (key.endsWith('_edges')) return value.toFixed(0);
   if (key.startsWith('dir_')) return value === 1 ? '+1 high' : '−1 low';
-  if (key === 'right_drag_Nms' || key.startsWith('resistance_')) return value.toFixed(4);
+  if (key.endsWith('_drag_Nms') || key.startsWith('resistance_')) return value.toFixed(4);
   return value.toFixed(3);
 }
 
@@ -187,8 +198,10 @@ function setTrace(next, name) {
   lastSample = -1;
   const { data, start, end } = trace;
   const duration = end - start;
-  drawScene = createScene(scene, data);
-  byId('source').textContent = name;
+  drawScene = createScene(scene, data, next.geometry);
+  const { radius, track } = next.geometry;
+  byId('scene-note').textContent = `Schematic axle · Track ${track.toFixed(3)} m · Wheel radius ${radius.toFixed(3)} m`;
+  if (!liveId) byId('source').textContent = name;
   byId('metadata').textContent = `${data.time_s.length.toLocaleString()} samples · Robot CSV v1`;
   byId('duration').textContent = `${duration.toFixed(3)} s duration`;
   byId('start-time').textContent = `${start.toFixed(3)} s`;
@@ -264,4 +277,39 @@ byId('fit').addEventListener('click', () => {
   render();
 });
 new ResizeObserver(updatePlots).observe(document.querySelector('.dashboard'));
-loadDemo();
+if (liveId) {
+  openLive(liveId, (csv, {generation, initial_pose: initial, geometry: dimensions}) => {
+    if (!csv) {
+      trace = undefined;
+      charts = [];
+      byId('readouts').replaceChildren();
+      byId('plots').replaceChildren();
+      const geometry = {radius: dimensions.wheel_radius_m, track: dimensions.track_width_m};
+      const initialScene = createScene(scene, {x_m: [initial.x_m], y_m: [initial.y_m]}, geometry);
+      initialScene({x: initial.x_m, y: initial.y_m, yaw: initial.heading_rad}, false, false);
+      follow.disabled = byId('fit').disabled = odom.disabled = true;
+      byId('scene-note').textContent = `Schematic axle · Track ${geometry.track.toFixed(3)} m · Wheel radius ${geometry.radius.toFixed(3)} m`;
+      byId('sample-time').textContent = 'Awaiting first sample';
+      return;
+    }
+    const next = parseTrace(csv);
+    if (!trace || trace.generation !== generation) {
+      setTrace(next, 'Live session');
+    } else {
+      trace = next;
+      drawScene = createScene(scene, next.data, next.geometry);
+      lastSample = -1;
+    }
+    trace.generation = generation;
+    time = next.end;
+    updatePlots();
+  });
+} else if (job && /^[0-9a-f]{32}$/.test(job)) {
+  load(async () => {
+    const response = await fetch(`/jobs/${job}/recording.csv`);
+    if (!response.ok) throw new Error('Recording unavailable. Run a scenario or open a local CSV.');
+    return response.text();
+  }, 'Scenario recording');
+} else {
+  loadDemo();
+}

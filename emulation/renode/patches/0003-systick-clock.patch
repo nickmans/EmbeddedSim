@@ -1,0 +1,103 @@
+--- STM32F4_RCC.cs
++++ STM32F4_RCC.cs
+@@ -10,6 +10,7 @@
+ using Antmicro.Renode.Core;
+ using Antmicro.Renode.Core.Structure.Registers;
+ using Antmicro.Renode.Peripherals.Bus;
++using Antmicro.Renode.Peripherals.IRQControllers;
+ using Antmicro.Renode.Peripherals.Timers;
+ 
+ namespace Antmicro.Renode.Peripherals.Miscellaneous
+@@ -19,11 +20,12 @@
+     {
+         public STM32F4_RCC(IMachine machine, STM32F4_RTC rtcPeripheral,
+             STM32_Timer timer2 = null, STM32_Timer timer3 = null, STM32_Timer timer4 = null,
+-            ulong hseFrequency = 8000000)
++            ulong hseFrequency = 8000000, STM32F407SysTickClock systickClock = null)
+         {
+             this.machine = machine;
+             this.timers = new[] { timer2, timer3, timer4 };
+             this.hseFrequency = hseFrequency;
++            this.systickClock = systickClock;
+             // Oscillator ready flags retain the upstream instantaneous behavior.
+             // Only the explicitly attached APB1 timers receive clock/reset signals.
+             var registersMap = new Dictionary<long, DoubleWordRegister>
+@@ -413,9 +415,14 @@
+             }
+             var ahbCode = (cfgr >> 4) & 15;
+             var ahbDividers = new uint[] { 1,1,1,1,1,1,1,1,2,4,8,16,64,128,256,512 };
++            var hclk = systemClock / ahbDividers[ahbCode];
++            if(ready)
++            {
++                systickClock?.SetHclk(hclk);
++            }
+             var apbCode = (cfgr >> 10) & 7;
+             var apbDivider = apbCode < 4 ? 1UL : 1UL << ((int)apbCode - 3);
+-            var timerClock = systemClock / ahbDividers[ahbCode] / apbDivider * (apbDivider == 1 ? 1UL : 2UL);
++            var timerClock = hclk / apbDivider * (apbDivider == 1 ? 1UL : 2UL);
+             var enables = RegistersCollection.Read(0x40);
+             var resets = RegistersCollection.Read(0x20);
+             for(var i = 0; i < timers.Length; ++i)
+@@ -430,6 +437,7 @@
+         private readonly IMachine machine;
+         private readonly STM32_Timer[] timers;
+         private readonly ulong hseFrequency;
++        private readonly STM32F407SysTickClock systickClock;
+ 
+         private enum Registers
+         {
+@@ -462,4 +470,52 @@
+             DedicatedClockConfiguration = 0x8C,
+         }
+     }
+-}
+\ No newline at end of file
++
++    // STM32F407 routes HCLK or HCLK/8 into the Cortex-M4 SysTick. Keep the
++    // installed NVIC's counter, pending exceptions and interrupt delivery.
++    public sealed class STM32F407SysTickClock : IPeripheral
++    {
++        public STM32F407SysTickClock(NVIC nvic)
++        {
++            this.nvic = nvic;
++            nvic.RegisterCollection.AddBeforeWriteHook(Control, (_, value) =>
++            {
++                processorClock = (value & ClockSourceBit) != 0;
++                UpdateDivider();
++                return null;
++            });
++            nvic.RegisterCollection.AddAfterReadHook(Control, (_, value) =>
++                (value & ~ClockSourceBit) | (processorClock ? ClockSourceBit : 0u));
++            Reset();
++        }
++
++        public void Reset()
++        {
++            processorClock = false;
++            UpdateDivider();
++        }
++
++        public void SetHclk(ulong frequency)
++        {
++            if(nvic.Frequency != frequency)
++            {
++                nvic.Frequency = frequency;
++            }
++            UpdateDivider();
++        }
++
++        private void UpdateDivider()
++        {
++            var divider = processorClock ? 1UL : 8UL;
++            if(nvic.Divider != divider)
++            {
++                nvic.Divider = divider;
++            }
++        }
++
++        private const long Control = 0x10;
++        private const uint ClockSourceBit = 1u << 2;
++        private readonly NVIC nvic;
++        private bool processorClock;
++    }
++}

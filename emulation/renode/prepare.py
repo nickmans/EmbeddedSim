@@ -7,9 +7,10 @@ import hashlib
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 
 HERE=Path(__file__).resolve().parent
-OUT=HERE/'out'
+OUT=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else HERE/'out'
 OUT.mkdir(exist_ok=True)
 hashes={
  'STM32_Timer.cs':'7e99f48c1daae8c1f2e4eef22eb09617b96f0abf61be13b2bec4d96f1e7b328d',

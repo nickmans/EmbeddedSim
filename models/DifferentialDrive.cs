@@ -6,39 +6,46 @@ namespace EmbeddedSim.Physics
     {
         public const double Mass=2, YawInertia=.04, Radius=.05, Track=.30, WheelJ=.00005;
         public const double LocalJ=Motor.J+WheelJ;
-        private const double A=LocalJ+Mass*Radius*Radius/4+YawInertia*Radius*Radius/(Track*Track);
-        private const double C=Mass*Radius*Radius/4-YawInertia*Radius*Radius/(Track*Track);
+        private readonly double mass, yawInertia, radius, track, localJ, a, c;
         // iL,iR,wL,wR,thetaL,thetaR,x,y,yaw,work,copper,motor loss,external loss.
         private double[] s=new double[13];
-        public DifferentialDrive(double wl=0,double wr=0,double il=0,double ir=0)
-        { s[0]=il;s[1]=ir;s[2]=wl;s[3]=wr; }
+        public DifferentialDrive(double wl=0,double wr=0,double il=0,double ir=0,
+            double mass=Mass,double yawInertia=YawInertia,double radius=Radius,double track=Track,
+            double wheelJ=WheelJ,double x=0,double y=0,double heading=0)
+        {
+            this.mass=mass;this.yawInertia=yawInertia;this.radius=radius;this.track=track;
+            localJ=Motor.J+wheelJ;
+            a=localJ+mass*radius*radius/4+yawInertia*radius*radius/(track*track);
+            c=mass*radius*radius/4-yawInertia*radius*radius/(track*track);
+            s[0]=il;s[1]=ir;s[2]=wl;s[3]=wr;s[6]=x;s[7]=y;s[8]=heading;
+        }
         public double Current(int side) => s[side];
         public double Speed(int side) => s[2+side];
         public double Angle(int side) => s[4+side];
         public double X => s[6]; public double Y => s[7]; public double Heading => s[8];
-        public double V => Radius*(s[2]+s[3])/2;
-        public double YawRate => Radius*(s[3]-s[2])/Track;
+        public double V => radius*(s[2]+s[3])/2;
+        public double YawRate => radius*(s[3]-s[2])/track;
         public double Energy => Motor.L*(s[0]*s[0]+s[1]*s[1])/2
-            +LocalJ*(s[2]*s[2]+s[3]*s[3])/2+Mass*V*V/2+YawInertia*YawRate*YawRate/2;
+            +localJ*(s[2]*s[2]+s[3]*s[3])/2+mass*V*V/2+yawInertia*YawRate*YawRate/2;
         public double Work => s[9]; public double CopperLoss=>s[10];
         public double MotorLoss=>s[11]; public double ExternalLoss=>s[12];
-        private static double[] Accelerations(double il,double ir,double wl,double wr,double cl,double cr)
+        private double[] Accelerations(double il,double ir,double wl,double wr,double cl,double cr)
         {
             double ql=Motor.Torque(il)-(Motor.B+cl)*wl;
             double qr=Motor.Torque(ir)-(Motor.B+cr)*wr;
-            return new[] {(A*ql-C*qr)/(A*A-C*C),(A*qr-C*ql)/(A*A-C*C)};
+            return new[] {(a*ql-c*qr)/(a*a-c*c),(a*qr-c*ql)/(a*a-c*c)};
         }
         public double[] Forces(double cl,double cr)
         {
             var acc=Accelerations(s[0],s[1],s[2],s[3],cl,cr);
             return new[] {acc[0],acc[1],
-                (Motor.Torque(s[0])-(Motor.B+cl)*s[2]-LocalJ*acc[0])/Radius,
-                (Motor.Torque(s[1])-(Motor.B+cr)*s[3]-LocalJ*acc[1])/Radius};
+                (Motor.Torque(s[0])-(Motor.B+cl)*s[2]-localJ*acc[0])/radius,
+                (Motor.Torque(s[1])-(Motor.B+cr)*s[3]-localJ*acc[1])/radius};
         }
-        private static double[] Rate(double[] y,double vl,double vr,double cl,double cr)
+        private double[] Rate(double[] y,double vl,double vr,double cl,double cr)
         {
             var acc=Accelerations(y[0],y[1],y[2],y[3],cl,cr);
-            double v=Radius*(y[2]+y[3])/2, yawRate=Radius*(y[3]-y[2])/Track;
+            double v=radius*(y[2]+y[3])/2, yawRate=radius*(y[3]-y[2])/track;
             return new[] {Motor.CurrentRate(y[0],y[2],vl),Motor.CurrentRate(y[1],y[3],vr),
                 acc[0],acc[1],y[2],y[3],v*Math.Cos(y[8]),v*Math.Sin(y[8]),yawRate,
                 vl*y[0]+vr*y[1],Motor.R*(y[0]*y[0]+y[1]*y[1]),

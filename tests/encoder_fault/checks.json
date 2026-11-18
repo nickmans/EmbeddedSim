@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "checks": [
+    {"name":"Right wheel tracks reference", "metric":"tracking_mae", "wheel":"right", "start_s":1.1, "end_s":1.9, "max":0.5},
+    {"name":"Right peak current within demo envelope", "metric":"peak_current", "wheel":"right", "start_s":0.001, "end_s":3, "max":4},
+    {"name":"Right PWM stays below sustained saturation", "metric":"pwm_saturation", "wheel":"right", "start_s":1, "end_s":3, "duty_fraction":0.99, "max":0.01},
+    {"name":"Right A continues reaching GPIO while turning", "metric":"encoder_activity", "channel":"right.a", "start_s":1.1, "end_s":1.9, "min_physical_edges":1000, "min_delivered_edges":1000, "max_delivered_edges":20000}
+  ]
+}

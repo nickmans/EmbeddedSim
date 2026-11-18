@@ -1,0 +1,15 @@
+{
+  "event": {
+    "sequence": 1,
+    "at_ns": 1100000000,
+    "right_Nms": 0.012
+  },
+  "stopped_virtual_ns": 2200000000,
+  "wall_seconds": 4.578666048000741,
+  "active_speed": 0.5669262224309588,
+  "samples": 2200,
+  "reproduction_byte_identical": true,
+  "right_speed_delta_rad_s": -3.3475310168150747,
+  "right_current_delta_A": 1.3205790300369058,
+  "right_pwm_duty_delta": 0.20204983388704728
+}

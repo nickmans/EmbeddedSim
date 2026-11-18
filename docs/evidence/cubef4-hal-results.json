@@ -1,0 +1,60 @@
+{
+  "elf_sha256": "710f3d616bc36f8c8c205a80c52833d4678b01852b7fd77ce2dd5f2b592cf9e6",
+  "samples_per_run": 10400,
+  "recording_sha256": "f8c583a0d103267f1f9c2ba22257376fda534c6f82f1dd71584209a3e60bfb64",
+  "repeat_identical": true,
+  "qualified_pins": [
+    "PA0",
+    "PA1",
+    "PA4",
+    "PA5",
+    "PA6",
+    "PA7",
+    "PB6",
+    "PB7"
+  ],
+  "pwm_period_s": {
+    "PA0": 0.0010000000000000009,
+    "PA1": 0.0010000000000000009
+  },
+  "initial_direction_high_s": 0.007,
+  "first_nonzero_pwm_s": 0.208,
+  "settled_wheel_speed_rad_s": {
+    "1.7": [
+      9.995710153465089,
+      10.115276011561601
+    ],
+    "4.1": [
+      -4.972067514080906,
+      5.042677501413253
+    ],
+    "6.7": [
+      6.026443631931688,
+      10.019544375666332
+    ],
+    "9.3": [
+      -8.01130575073265,
+      -7.997947573457736
+    ]
+  },
+  "mean_curve_duty_left_right": [
+    0.02705200000000474,
+    0.0450919999999968
+  ],
+  "load_right_duty_delta": 0.039211999999995584,
+  "load_right_current_delta_A": 0.2560889681373848,
+  "load_right_speed_drop_rad_s": 0.5949640504314306,
+  "first_changed_right_counter_s": 0.811,
+  "first_changed_right_pwm_s": 0.812,
+  "flash_cache_prefetch_warnings": [
+    "flash_controller: Unhandled write to offset 0x0. Unhandled bits: [9] when writing value 0x200. Tags: ICEN (0x1).",
+    "flash_controller: Unhandled write to offset 0x0. Unhandled bits: [10] when writing value 0x400. Tags: DCEN (0x1).",
+    "flash_controller: Unhandled write to offset 0x0. Unhandled bits: [8] when writing value 0x100. Tags: PRFTEN (0x1)."
+  ],
+  "unsafe_direction_switches": 0,
+  "final_pose_m_rad": [
+    0.7660155953970237,
+    0.3548443584635455,
+    3.8512191577121064
+  ]
+}

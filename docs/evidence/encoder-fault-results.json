@@ -1,0 +1,113 @@
+{
+  "fault": {
+    "channel": "right.a",
+    "level": 0,
+    "start_s": 1,
+    "end_s": 2
+  },
+  "elf_sha256": "a023be1230064d97dfe533277f759367d98b65488fa6cb6437508ffa5a0643d8",
+  "assertion_exit_codes": {
+    "baseline": 0,
+    "faulted": 1
+  },
+  "baseline": {
+    "recording_sha256": "9e9bdf75e8b28c8f32090c2d23467a070744dd47116a24f5803ff35d6fbec9cc",
+    "assertions": [
+      {
+        "name": "Right wheel tracks reference",
+        "metric": "tracking_mae",
+        "source": "model wheel speed and firmware reference",
+        "value": 0.03282586864260075,
+        "unit": "rad/s",
+        "max": 0.5,
+        "passed": true
+      },
+      {
+        "name": "Right peak current within demo envelope",
+        "metric": "peak_current",
+        "source": "model motor current",
+        "value": 2.3867199650001516,
+        "unit": "A",
+        "max": 4,
+        "passed": true
+      },
+      {
+        "name": "Right PWM stays below sustained saturation",
+        "metric": "pwm_saturation",
+        "source": "observed PWM duty",
+        "value": 0,
+        "unit": "s",
+        "max": 0.01,
+        "passed": true
+      },
+      {
+        "name": "Right A continues reaching GPIO while turning",
+        "metric": "encoder_activity",
+        "source": "physical encoder and MCU GPIO transitions",
+        "unit": "edges",
+        "physical": 2601,
+        "delivered": 2601,
+        "min_physical": 1000,
+        "min_delivered": 1000,
+        "max_delivered": 20000,
+        "passed": true
+      }
+    ],
+    "final": {
+      "right_speed_rad_s": 3.231066572808152,
+      "firmware_right_estimate_rad_s": 3.144660711288452,
+      "physical_right_count": 11996,
+      "firmware_right_count": 11994
+    }
+  },
+  "faulted": {
+    "recording_sha256": "7bef36b4d8ced4e03d799657d0f54d3d99d602089281744bcce234b54301a8fe",
+    "assertions": [
+      {
+        "name": "Right wheel tracks reference",
+        "metric": "tracking_mae",
+        "source": "model wheel speed and firmware reference",
+        "value": 22.036286785724936,
+        "unit": "rad/s",
+        "max": 0.5,
+        "passed": false
+      },
+      {
+        "name": "Right peak current within demo envelope",
+        "metric": "peak_current",
+        "source": "model motor current",
+        "value": 7.320332400517519,
+        "unit": "A",
+        "max": 4,
+        "passed": false
+      },
+      {
+        "name": "Right PWM stays below sustained saturation",
+        "metric": "pwm_saturation",
+        "source": "observed PWM duty",
+        "value": 0.1900000000000004,
+        "unit": "s",
+        "max": 0.01,
+        "passed": false
+      },
+      {
+        "name": "Right A continues reaching GPIO while turning",
+        "metric": "encoder_activity",
+        "source": "physical encoder and MCU GPIO transitions",
+        "unit": "edges",
+        "physical": 8359,
+        "delivered": 0,
+        "min_physical": 1000,
+        "min_delivered": 1000,
+        "max_delivered": 20000,
+        "passed": false
+      }
+    ],
+    "final": {
+      "right_speed_rad_s": 5.797759881279175,
+      "firmware_right_estimate_rad_s": 5.75242805480957,
+      "physical_right_count": 35331,
+      "firmware_right_count": 14436
+    }
+  }
+}

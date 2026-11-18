@@ -55,3 +55,11 @@ test('reproduces the first, middle and last exported poses', () => {
     assert.deepEqual(poseAt(data, time), { x, y, yaw });
   }
 });
+
+test('uses constant recorded geometry and preserves the old default', () => {
+  const fallback = parseTrace(`${header}\n0,0,0,0`);
+  const custom = `${header},wheel_radius_m,track_width_m\n0,0,0,0,0.06,0.4`;
+  assert.deepEqual(fallback.geometry, { radius: 0.05, track: 0.30 });
+  assert.deepEqual(parseTrace(custom).geometry, { radius: 0.06, track: 0.4 });
+  assert.throws(() => parseTrace(`${custom}\n1,0,0,0,0.07,0.4`), /wheel_radius_m must be positive and constant/);
+});

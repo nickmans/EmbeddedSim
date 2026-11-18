@@ -4,3 +4,6 @@ tests/peripherals/out/
 emulation/renode/out/
 tests/closed_loop/out/
 tests/robot/out/
+
+setup/out/
+firmware/cubef4-hal/out/

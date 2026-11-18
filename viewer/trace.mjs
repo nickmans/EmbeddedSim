@@ -55,7 +55,15 @@ export function parseTrace(csv) {
     data[headingErrorKey] = Float64Array.from(data.heading_rad, (yaw, i) =>
       wrap(data.odom_heading_rad[i] - yaw));
   }
-  return { data, start, end };
+  const geometry = { radius: 0.05, track: 0.30 };
+  for (const [column, key] of [['wheel_radius_m', 'radius'], ['track_width_m', 'track']]) {
+    if (!Object.hasOwn(data, column)) continue;
+    if (data[column][0] <= 0 || data[column].some(value => value !== data[column][0])) {
+      throw new Error(`${column} must be positive and constant throughout the recording.`);
+    }
+    geometry[key] = data[column][0];
+  }
+  return { data, start, end, geometry };
 }
 
 export function wrap(angle) {

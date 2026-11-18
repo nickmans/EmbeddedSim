@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "target": {"part": "stm32f407vgt6", "profile": "robot-hsi16-v1"},
+  "robot": {
+    "preset": "differential-drive-v1",
+    "body": {
+      "mass_kg": 2,
+      "yaw_inertia_kg_m2": 0.04,
+      "wheel_radius_m": 0.05,
+      "track_width_m": 0.30,
+      "wheel_inertia_kg_m2": 0.00005
+    },
+    "motors": {
+      "resistance_ohm": 2, "inductance_H": 0.005, "back_emf_V_per_rad_s": 0.05,
+      "torque_Nm_per_A": 0.05, "inertia_kg_m2": 0.0002, "viscous_Nms": 0.0001
+    },
+    "drivers": {"supply_V": 12, "pwm_window_s": 0.001, "direction_blank_s": 0.002},
+    "encoders": {"counts_per_revolution": 4096}
+  },
+  "world": {"type": "empty-flat-floor"},
+  "wiring": {
+    "left.pwm": "PA0", "left.direction": "PA4", "left.encoder_a": "PA6", "left.encoder_b": "PA7",
+    "right.pwm": "PA1", "right.direction": "PA5", "right.encoder_a": "PB6", "right.encoder_b": "PB7"
+  },
+  "scenario": {
+    "duration_s": 10.4,
+    "initial_pose": {"x_m": 0, "y_m": 0, "heading_rad": 0},
+    "loads": [{"start_s": 0.8, "end_s": 1.4, "left_Nms": 0, "right_Nms": 0.0015}],
+    "observer": "none"
+  }
+}
